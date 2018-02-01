@@ -97,5 +97,6 @@ for l, r in testindices:
         # print it and move on to the next substring, otherwise shrink
         # delta further
         if best:
-            print(best)
+            # Print answer modulo 10^9 + 7
+            print(best % (int(1e9) + 7))
             break
