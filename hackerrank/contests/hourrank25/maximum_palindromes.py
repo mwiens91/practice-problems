@@ -6,13 +6,13 @@ import sys
 
 
 def find_num_max_palindromes(i, j):
-    """Counts number of max length palindromes.
+    """Counts number of max length palindromes mod M.
 
     Finds the number of maximum length palindromes inside substring
-    marked by i, j.
+    marked by i, j mod M.
     """
-    # Explicitly using the outside counts list
-    global counts
+    # Explicitly using the outside counts list and the divisor M
+    global counts, M
 
     # Deal with the explicit trivial cases here
     if j - i <= 1:
@@ -42,7 +42,7 @@ def find_num_max_palindromes(i, j):
             if odds == 2:
                 return 0
         else:
-            numpairs = lettercount / 2
+            numpairs = int(lettercount / 2)
 
             # Add duplicate pairs if needed
             if numpairs > 1:
@@ -51,13 +51,21 @@ def find_num_max_palindromes(i, j):
             # Add the number of pairs to the total sum
             pairs += numpairs
 
-    # This is a (possibly well known?) discrete math formula
-    num_palindromes = math.factorial(pairs)
+    # This is using a (possibly well known?) discrete math formula
+    # First calculate the factorial mod M of the pairs
+    ans = 1
+    for i in range(1, pairs+1):
+        ans = ans * i % M
+
+    # Now divide by the factorial of each duplicate using fancy math
     for duplicate in duplicate_list:
-        num_palindromes /= math.factorial(duplicate)
+        ans = ans * pow(math.factorial(duplicate), M-2, M) % M
 
-    return num_palindromes
+    return ans
 
+
+# Set the divisor to mod our answers with
+M = int(1e9) + 7
 
 # Read lines from stdin
 lines = [line.strip() for line in sys.stdin.readlines()]
@@ -92,11 +100,12 @@ for l, r in testindices:
         for leftdelta in range(delta + 1):
             best += (
                 find_num_max_palindromes(l + leftdelta, r - (delta-leftdelta)))
+            best %= M
 
         # If there are any maximum length permutations for this delta,
         # print it and move on to the next substring, otherwise shrink
         # delta further
         if best:
-            # Print answer modulo 10^9 + 7
-            print(best % (int(1e9) + 7))
+            # Print answer modulo M
+            print(best)
             break
