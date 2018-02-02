@@ -1,8 +1,25 @@
 #!/usr/bin/env python3
 
-import math
 import re
 import sys
+
+FACTORIAL_MOD_MEMORY = {0: 1, 1: 1, 'max': 1}
+M = int(1e9) + 7    # divisor for all mod operations
+
+
+def factorial_mod(n):
+    """Takes the factorial mod M of a number."""
+    # Use divisor M defined above
+    global M
+
+    if n <= FACTORIAL_MOD_MEMORY['max']:
+        return FACTORIAL_MOD_MEMORY[n]
+
+    for x in range(FACTORIAL_MOD_MEMORY['max'] + 1, n + 1):
+        FACTORIAL_MOD_MEMORY[x] = FACTORIAL_MOD_MEMORY[x-1] * x % M
+
+    FACTORIAL_MOD_MEMORY['max'] = n
+    return FACTORIAL_MOD_MEMORY[n]
 
 
 def find_num_max_palindromes(i, j):
@@ -46,13 +63,11 @@ def find_num_max_palindromes(i, j):
 
     # This is using a (possibly well known?) discrete math formula
     # First calculate the factorial mod M of the pairs
-    ans = 1
-    for k in range(1, pairs+1):
-        ans = ans * k % M
+    ans = factorial_mod(pairs)
 
     # Now divide by the factorial of each duplicate using fancy math
     for duplicate in duplicate_list:
-        ans = ans * pow(math.factorial(duplicate), M-2, M) % M
+        ans = ans * pow(factorial_mod(duplicate), M-2, M) % M
 
     # Multiply by the number of odd numbers - 1 if there are any odd
     # numbers
@@ -63,9 +78,6 @@ def find_num_max_palindromes(i, j):
 
     return ans
 
-
-# Set the divisor to mod our answers with
-M = int(1e9) + 7
 
 # Read lines from stdin
 lines = [line.strip() for line in sys.stdin.readlines()]
