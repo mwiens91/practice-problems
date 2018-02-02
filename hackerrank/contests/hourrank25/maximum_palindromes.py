@@ -30,21 +30,18 @@ def find_num_max_palindromes(i, j):
     odds = 0
     duplicate_list = []
     for lettercount in count:
-        # Check if there are any, an odd number, or an even number of a
-        # letter
-        if not lettercount:
-            continue
-        elif lettercount % 2:
+        # Check if there are an odd number a letter
+        if lettercount % 2:
             odds += 1
-        else:
-            numpairs = int(lettercount / 2)
 
-            # Add duplicate pairs if needed
-            if numpairs > 1:
-                duplicate_list.append(numpairs)
+        numpairs = lettercount // 2
 
-            # Add the number of pairs to the total sum
-            pairs += numpairs
+        # Add duplicate pairs if needed
+        if numpairs > 1:
+            duplicate_list.append(numpairs)
+
+        # Add the number of pairs to the total sum
+        pairs += numpairs
 
 
     # This is using a (possibly well known?) discrete math formula
