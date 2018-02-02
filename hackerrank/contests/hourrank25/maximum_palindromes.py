@@ -31,8 +31,8 @@ def find_num_max_palindromes(i, j):
     # Explicitly using the outside counts list and the divisor M
     global counts, M
 
-    # Deal with the explicit trivial cases here
-    if j - i <= 1:
+    # Deal with the trivial case
+    if  i == j:
         return 1
 
     # Count letters in the substring
