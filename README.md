@@ -1,4 +1,4 @@
-# Practice Problems
+# Hello
 
 This is code I've written to solve practice problems on [HackerRank](https://www.hackerrank.com/) and similar websites.
 
