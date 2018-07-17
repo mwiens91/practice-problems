@@ -1,5 +1,9 @@
-# Hello
+# practice-problems
 
-This is code I've written to solve practice problems on [HackerRank](https://www.hackerrank.com/) and similar websites.
+This is code I've written to solve practice problems on
+[HackerRank](https://www.hackerrank.com/) and similar websites.
 
-[HackerRank](https://www.hackerrank.com/) allows programmers to practice, learn, compete, and find jobs. 
+## See also
+
++ [coding-competitions](https://github.com/mwiens91/coding-competitions),
+  which contains code I've written for live programming competitions.
