@@ -23,6 +23,6 @@ result.median <- median(numbers)
 result.mode <- Mode(numbers)
 
 # Print results
-cat(round(result.mean, 1), sep="\n")
-cat(round(result.median, 1), sep="\n")
+cat(format(round(result.mean, 1), nsmall=1), sep="\n")
+cat(format(round(result.median, 1), nsmall=1), sep="\n")
 cat(result.mode, sep="\n")
