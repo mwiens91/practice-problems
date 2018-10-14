@@ -12,7 +12,7 @@ r, c = [int(x) for x in lines[0].split()]
 weights = np.matrix([[int(x) for x in line.split()] for line in lines[1:]])
 
 # Set up the distances matrix
-results = np.zeros((r, c), dtype=np.int8)
+results = np.zeros((r, c), dtype=int)
 
 results[r - 1, c - 1] = 1   # we need at least one health
 
