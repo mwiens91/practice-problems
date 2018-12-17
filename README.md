@@ -6,4 +6,4 @@ This is code I've written to solve practice problems on
 ## See also
 
 + [coding-competitions](https://github.com/mwiens91/coding-competitions),
-  which contains code I've written for live programming competitions.
+  which contains code I've written for live programming competitions
