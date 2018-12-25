@@ -1,6 +1,5 @@
 import           Data.List                      ( elemIndex
                                                 , group
-                                                , nub
                                                 , sort
                                                 , sortBy
                                                 )
@@ -38,7 +37,7 @@ printTestCaseResult l  = putStrLn $ unwords . fmap show $ l
 
 -- Comparison function relative to index in a list
 compareIndex :: [Int] -> Int -> Int -> Ordering
-compareIndex l x y = compare (elemIndex x $ nub l) (elemIndex y $ nub l)
+compareIndex l x y = compare (elemIndex x l) (elemIndex y l)
 
 -- Return which elements have N duplicates
 hasNDuplicates :: Int -> [Int] -> [Int]
