@@ -42,7 +42,7 @@ def next_lexicographical_permutation(l: List[int]) -> List[int]:
     swap = suffix[swap_idx]
     suffix[swap_idx] = pivot
 
-    return l[: N - M - 1] + [swap] + sorted(suffix)
+    return l[: N - M - 1] + [swap] + list(reversed(suffix))
 
 
 # Read lines from stdin
