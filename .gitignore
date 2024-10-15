@@ -1,3 +1,7 @@
+# Ignore node config stuff added by leetcode.nvim
+leetcode/package.json
+leetcode/package-lock.json
+
 # Created by https://www.gitignore.io/api/c,r,c++,node,python,matlab,haskell
 # Edit at https://www.gitignore.io/?templates=c,r,c++,node,python,matlab,haskell
 
