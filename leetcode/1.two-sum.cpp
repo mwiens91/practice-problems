@@ -1,5 +1,6 @@
 // @leet start
 #include <ranges>
+#include <stdexcept>
 #include <unordered_map>
 #include <vector>
 
