@@ -46,32 +46,30 @@ public:
       uniqueNums.push_back(x);
     }
 
-    // Go through each possible two-sum x + y and check if there's a
-    // third number z = -x - y that makes the sum 0. Using a set to
-    // store solutions because with the current implementation we'll be
-    // adding most results twice; it's not hard to implement this so
-    // each result is added exactly once, but I don't think that really
-    // gains much (could actually be less efficient?).
+    // Find all possible solutions. Using a set to store solutions
+    // because with the current implementation we'll be adding most
+    // results twice; it's not hard to implement this so each result is
+    // added exactly once, but I don't think that really gains much
+    // (could actually be less efficient?).
     std::set<std::tuple<int, int, int>> results;
 
-    for (size_t i = 0; i < uniqueNums.size(); ++i) {
-      // Get a number x
-      const auto x = uniqueNums[i];
-
-      // We'll handle x == 0 separately here. We won't do other
-      // processing because all other solutions containing zero will be
-      // handled when we iterate over the other numbers.
+    for (const auto &[i, x] : std::views::enumerate(uniqueNums)) {
+      // Test for solutions containing three 'x's, which happens only
+      // when x == 0. We continue here because there are no solutions
+      // with two '0's, and solutions with one '0' will be picked up
+      // with other iterations of this loop; also if we know x != 0
+      // below we can simplify logic greatly.
       if (x == 0) {
-        if (freqMap[x] > 2) {
+        if (freqMap[x] >= 3) {
           results.insert({x, x, x});
         }
 
         continue;
       }
 
-      // Test for possible solution containing 2 'x's
-      if (freqMap[x] > 1) {
-        // Get complement z
+      // Test for solutions containing exactly two 'x's
+      if (freqMap[x] >= 2) {
+        // Get complement z (!= x)
         const auto z = -2 * x;
 
         if (freqMap.contains(z)) {
@@ -79,17 +77,21 @@ public:
         }
       }
 
-      // Now iterate through all other pairs to find solutions with
-      // unique numbers (explained below)
+      // Test for solutions containing exactly one 'x'. We'll defer
+      // handling solutions {x, y, z} with y == z for other iterations
+      // of this loop using the block above for handling two of a given
+      // number, which lets us simply some logic here.
       for (size_t j = i + 1; j < uniqueNums.size(); ++j) {
         // Get another number y and the complement z we need to find
         const auto y = uniqueNums[j];
         const auto z = -x - y;
 
-        // If x == z we've already handled this case above. If y == z we'll deal
-        // with this case when the outer loop i index is equal to the current j
-        // index.
-        if (x != z && y != z && freqMap.contains(z)) {
+        // Make sure numbers are unique
+        if (x == z || y == z) {
+          continue;
+        }
+
+        if (freqMap.contains(z)) {
           results.insert(makeSortedThreeTuple(x, y, z));
         }
       }
