@@ -1,27 +1,8 @@
 // @leet start
-#include <algorithm>
 #include <ranges>
 #include <set>
-#include <tuple>
 #include <unordered_map>
 #include <vector>
-
-// Convenience function we'll use later
-std::tuple<int, int, int> makeSortedThreeTuple(int x, int y, int z) {
-  if (x > y) {
-    std::swap(x, y);
-  }
-
-  if (y > z) {
-    std::swap(y, z);
-  }
-
-  if (x > y) {
-    std::swap(x, y);
-  }
-
-  return {x, y, z};
-}
 
 class Solution {
 public:
@@ -38,7 +19,7 @@ public:
       }
     }
 
-    // Put all the keys in a vector
+    // Put all the keys in a vector to iterate over
     std::vector<int> uniqueNums;
     uniqueNums.reserve(freqMap.size());
 
@@ -46,67 +27,55 @@ public:
       uniqueNums.push_back(x);
     }
 
-    // Find all possible solutions. Using a set to store solutions
-    // because with the current implementation we'll be adding most
-    // results twice; it's not hard to implement this so each result is
-    // added exactly once, but I don't think that really gains much
-    // (could actually be less efficient?).
-    std::set<std::tuple<int, int, int>> results;
+    // We'll use this to keep track of numbers we've seen so far as we
+    // iterate through. This will be used in the third chunk of the main
+    // loop below.
+    std::set<int> numsSeen;
+
+    // Find all possible solutions
+    std::vector<std::vector<int>> results;
 
     for (const auto &[i, x] : std::views::enumerate(uniqueNums)) {
-      // Test for solutions containing three 'x's, which happens only
-      // when x == 0. We continue here because there are no solutions
-      // with two '0's, and solutions with one '0' will be picked up
-      // with other iterations of this loop; also if we know x != 0
-      // below we can simplify logic greatly.
-      if (x == 0) {
-        if (freqMap[x] >= 3) {
-          results.insert({x, x, x});
-        }
+      // Mark that we've seen x for future iterations
+      numsSeen.insert(x);
 
-        continue;
+      // Test for solutions containing exactly three 'x's, which happens
+      // only when x == 0
+      if (x == 0 && freqMap[x] >= 3) {
+        results.push_back({x, x, x});
       }
 
       // Test for solutions containing exactly two 'x's
       if (freqMap[x] >= 2) {
-        // Get complement z (!= x)
+        // Get complement z
         const auto z = -2 * x;
 
-        if (freqMap.contains(z)) {
-          results.insert(makeSortedThreeTuple(x, x, z));
+        if (freqMap.contains(z) && z != 0) {
+          results.push_back({x, x, z});
         }
       }
 
-      // Test for solutions containing exactly one 'x'. We'll defer
-      // handling solutions {x, y, z} with y == z for other iterations
-      // of this loop using the block above for handling two of a given
-      // number, which lets us simply some logic here.
+      // Test for solutions containing exactly one 'x' using numbers we
+      // haven't iterated over yet. We'll defer handling solutions
+      // {x, y, z} with y == z for other iterations of this loop using
+      // the block above for handling exactly two of a given number.
       for (const auto &[j, y] :
            std::views::enumerate(uniqueNums | std::views::drop(i + 1))) {
-        // Get the complement z we need to find
+        // Get complement z
         const auto z = -x - y;
 
-        // Make sure numbers are unique
+        // Make sure we don't have two 'x's or 'y's
         if (x == z || y == z) {
           continue;
         }
 
-        if (freqMap.contains(z)) {
-          results.insert(makeSortedThreeTuple(x, y, z));
+        if (numsSeen.contains(z)) {
+          results.push_back({x, y, z});
         }
       }
     }
 
-    // Convert results set of tuples to a vector of vectors
-    std::vector<std::vector<int>> resultsVec;
-    resultsVec.reserve(results.size());
-
-    for (const auto &result : results) {
-      resultsVec.push_back(
-          {std::get<0>(result), std::get<1>(result), std::get<2>(result)});
-    }
-
-    return resultsVec;
+    return results;
   }
 };
 // @leet end
