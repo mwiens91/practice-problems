@@ -81,9 +81,9 @@ public:
       // handling solutions {x, y, z} with y == z for other iterations
       // of this loop using the block above for handling two of a given
       // number, which lets us simply some logic here.
-      for (size_t j = i + 1; j < uniqueNums.size(); ++j) {
-        // Get another number y and the complement z we need to find
-        const auto y = uniqueNums[j];
+      for (const auto &[j, y] :
+           std::views::enumerate(uniqueNums | std::views::drop(i + 1))) {
+        // Get the complement z we need to find
         const auto z = -x - y;
 
         // Make sure numbers are unique
