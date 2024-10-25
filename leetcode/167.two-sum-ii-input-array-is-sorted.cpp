@@ -11,6 +11,12 @@ public:
     size_t j = numbers.size() - 1;
 
     for (;; ++i) {
+      // Make sure the forward pointer doesn't go over a duplicate value
+      // (not an issue for the backwards pointer)
+      if (i > 0 && numbers[i] == numbers[i - 1]) {
+        continue;
+      }
+
       // Get lower number x and complement y = target - x
       const auto x = numbers[i];
       const auto y = target - x;
