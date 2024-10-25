@@ -14,19 +14,18 @@ public:
       const auto x = numbers[i];
       const auto y = target - x;
 
-      // Go through upper numbers z until we find the complement or we
-      // reach numbers which imply the complement does not exist
-      for (;;) {
+      // Go through upper numbers z until we find the complement y or we
+      // reach numbers which imply the complement does not exist for
+      // this x
+      for (;; --j) {
         // Upper number z
         const auto z = numbers[j];
 
         if (z == y) {
           // Found solution. Recall numbers on paper are 1-indexed
           return {static_cast<int>(i) + 1, static_cast<int>(j) + 1};
-        } else if (z > y) {
-          --j;
-        } else {
-          // z < y
+        } else if (z < y) {
+          // Complement does not exist
           break;
         }
       }
