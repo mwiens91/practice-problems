@@ -5,11 +5,12 @@
 class Solution {
 public:
   std::vector<int> twoSum(std::vector<int> &numbers, int target) {
-    // Go through numbers simultaneously from front and back. If we
-    // didn't know there was a guaranteed solution we should have i < j
-    // in the for loop condition, but since this is guaranteed to work
-    // we don't need it.
-    for (size_t i = 0, j = numbers.size() - 1;; ++i) {
+    // Go through numbers from front to back using a forward and
+    // backward pointer
+    size_t i = 0;
+    size_t j = numbers.size() - 1;
+
+    for (;; ++i) {
       // Get lower number x and complement y = target - x
       const auto x = numbers[i];
       const auto y = target - x;
