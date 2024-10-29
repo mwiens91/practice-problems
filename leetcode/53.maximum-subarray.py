@@ -1,8 +1,8 @@
 # @leet start
-from math import inf
+import math
 
 class Solution:
-    def maxSubArray(self, nums: List[int]) -> int:
+    def maxSubArray(self, nums: list[int]) -> int:
         # Go through with a forward iteration, resetting current
         # cumulative sum each time the previous cumulative sum was
         # negative
@@ -10,9 +10,7 @@ class Solution:
         best_cum_sum = -math.inf
 
         for num in nums:
-            if cum_sum < 0:
-                cum_sum = 0
-
+            cum_sum = max(cum_sum, 0)
             cum_sum += num
 
             best_cum_sum = max(best_cum_sum, cum_sum)

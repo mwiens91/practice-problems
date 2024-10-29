@@ -1,6 +1,6 @@
 # @leet start
 class Solution:
-    def productExceptSelf(self, nums: List[int]) -> List[int]:
+    def productExceptSelf(self, nums: list[int]) -> list[int]:
         # Get length of nums
         nums_len = len(nums)
 

@@ -1,8 +1,8 @@
 # @leet start
-from math import inf
+import math
 
 class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
+    def maxProfit(self, prices: list[int]) -> int:
         # Initialize the minimum price seen so far (so, in the past),
         # and the maximum profit we have been able to obtain so far
         min_price_seen = math.inf
