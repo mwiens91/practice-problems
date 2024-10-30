@@ -14,7 +14,7 @@ class Solution:
         # Prefix
         last_prefix_prod = 1
 
-        for i in range(0, nums_len):
+        for i in range(nums_len):
             solution[i] = last_prefix_prod
 
             # Set up for next iteration
