@@ -33,7 +33,7 @@ class Solution:
             s_counts[s[i - 1]] -= 1
 
             # Add new
-            s_counts[s[i - 1 + p_len]] += 1
+            s_counts[s[i + p_len - 1]] += 1
 
             # Check if there's a match
             if p_counts == s_counts:
