@@ -21,7 +21,7 @@ class Solution:
                 max_deque.popleft()
 
         def process_entering(x):
-            while (max_deque and x > max_deque[-1]):
+            while max_deque and x > max_deque[-1]:
                 max_deque.pop()
 
             max_deque.append(x)
