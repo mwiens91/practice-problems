@@ -7,41 +7,25 @@
 #         self.right = right
 class Solution:
     def hasPathSum(self, root: TreeNode | None, targetSum: int) -> bool:
-        # We'll do a DFS here using the below function. Keep passing
-        # down to children and taking the node's value of the current
-        # target. Base case is when we hit None. It's thus true if
-        # target is zero, false otherwise.
-        def has_path_sum_recurse(node: TreeNode | None, target: int) -> bool:
-            # Base case 
-            if node is None:
-                if target == 0:
-                    return True
-                else:
-                    return False
+        # Use recursion to find if path sum exists
+        def recurse(node: TreeNode | None, current_sum: int) -> bool:
+          # Base case: we're at a leaf
+          if node.left is None and node.right is None:
+            return current_sum + node.val == targetSum
 
-            # Recurse on children. We cannot terminate at a null child
-            # if a non-null child exists: makes the logic a little
-            # annoying.
-            child_target = target - node.val
-
-            if node.left is not None and node.right is None:
-                # Must travel down left
-                return has_path_sum_recurse(node.left, child_target)
-
-            if node.left is None and node.right is not None:
-                # Must travel down right
-                return has_path_sum_recurse(node.right, child_target)
-
-            # Travel down both
-            if has_path_sum_recurse(node.left, child_target):
+          # Recursive steps
+          for child in [node.left, node.right]:
+            if child is not None:
+              # Base case will evaluate true at a leaf, so this is
+              # passing up the True value to the root
+              if recurse(child, current_sum + node.val):
                 return True
 
-            return has_path_sum_recurse(node.right, child_target)
+          return False
 
-        # Empty tree always false
+        # Handle edge case: root is None
         if root is None:
-            return False
+          return False
 
-        # Recurse from root
-        return has_path_sum_recurse(root, targetSum)
+        return recurse(root, 0)
 # @leet end
