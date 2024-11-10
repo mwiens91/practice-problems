@@ -1,6 +1,7 @@
 # @leet start
 import itertools
 
+
 class Solution:
     def isValidSudoku(self, board: list[list[str]]) -> bool:
         # Validate rows
@@ -47,5 +48,6 @@ class Solution:
                 return False
 
         return True
-# @leet end
 
+
+# @leet end

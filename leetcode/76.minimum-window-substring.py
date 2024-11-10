@@ -2,6 +2,7 @@
 import math
 from string import ascii_letters
 
+
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
         # Here we'll keep track of the counts in t and in a sliding
@@ -76,5 +77,6 @@ class Solution:
             return ""
 
         return s[minimum_window_start_idx:minimum_window_end_idx]
-# @leet end
 
+
+# @leet end

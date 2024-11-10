@@ -1,6 +1,7 @@
 # @leet start
 import math
 
+
 class Solution:
     def maxSubArray(self, nums: list[int]) -> int:
         # Go through with a forward iteration, resetting current
@@ -16,4 +17,6 @@ class Solution:
             best_cum_sum = max(best_cum_sum, cum_sum)
 
         return best_cum_sum
+
+
 # @leet end

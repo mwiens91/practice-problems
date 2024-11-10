@@ -15,10 +15,12 @@ class Solution:
             # key. Probably not hard. Does need a bit of
             # thinking/Googling. Not going to bother doing this here.
             # Rather move on.
-            if (sorted_str := ''.join(sorted(str_))) in group_dict:
+            if (sorted_str := "".join(sorted(str_))) in group_dict:
                 group_dict[sorted_str].append(str_)
             else:
                 group_dict[sorted_str] = [str_]
 
         return list(group_dict.values())
+
+
 # @leet end

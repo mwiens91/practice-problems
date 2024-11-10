@@ -1,6 +1,7 @@
 # @leet start
 import itertools
 
+
 class Solution:
     def majorityElement(self, nums: list[int]) -> int:
         # NOTE: For O(1) space solution I needed to see Neetcode's
@@ -35,4 +36,6 @@ class Solution:
                     count = 1
 
         return candidate_elem
+
+
 # @leet end

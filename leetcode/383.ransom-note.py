@@ -1,6 +1,7 @@
 # @leet start
 from collections import Counter
 
+
 class Solution:
     def canConstruct(self, ransomNote: str, magazine: str) -> bool:
         magazine_counter = Counter(magazine)
@@ -10,4 +11,6 @@ class Solution:
                 return False
 
         return True
+
+
 # @leet end

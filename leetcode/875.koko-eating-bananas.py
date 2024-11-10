@@ -1,6 +1,7 @@
 # @leet start
 import math
 
+
 class Solution:
     def minEatingSpeed(self, piles: list[int], h: int) -> int:
         # k is in an integer that will be between 1 and the maximum pile
@@ -37,4 +38,6 @@ class Solution:
                 i = mid + 1
 
         return i
+
+
 # @leet end

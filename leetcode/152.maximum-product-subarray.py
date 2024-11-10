@@ -1,6 +1,7 @@
 # @leet start
 import math
 
+
 class Solution:
     def maxProduct(self, nums: list[int]) -> int:
         # Go through with a forward iteration. Conceptually, nums is
@@ -34,4 +35,6 @@ class Solution:
             best = max(best, current_max)
 
         return best
+
+
 # @leet end

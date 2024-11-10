@@ -19,4 +19,6 @@ class Solution:
 
         # No target
         return -1
+
+
 # @leet end

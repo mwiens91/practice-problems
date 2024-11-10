@@ -2,6 +2,7 @@
 # The isBadVersion API is already defined for you.
 # def isBadVersion(version: int) -> bool:
 
+
 class Solution:
     def firstBadVersion(self, n: int) -> int:
         # Do a variant of a binary search
@@ -17,4 +18,6 @@ class Solution:
                 i = mid + 1
 
         return i
+
+
 # @leet end

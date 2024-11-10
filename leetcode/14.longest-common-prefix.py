@@ -1,6 +1,7 @@
 # @leet start
 import itertools
 
+
 class Solution:
     def longestCommonPrefix(self, strs: list[str]) -> str:
         # Number of strings passed in
@@ -30,4 +31,6 @@ class Solution:
             pass
 
         return longest_prefix
+
+
 # @leet end

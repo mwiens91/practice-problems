@@ -2,6 +2,7 @@
 from collections import deque
 from string import ascii_uppercase
 
+
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
         # NOTE: For this solution you really don't need a deque, just
@@ -46,5 +47,6 @@ class Solution:
             best = max(best, len(substr_deque))
 
         return best
-# @leet end
 
+
+# @leet end

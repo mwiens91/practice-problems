@@ -41,4 +41,6 @@ class Solution:
 
         # Failed to find occurance of needle in haystack
         return -1
+
+
 # @leet end

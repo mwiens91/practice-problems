@@ -6,6 +6,7 @@
 #         self.next = next
 from math import ceil
 
+
 class Solution:
     def middleNode(self, head: ListNode | None) -> ListNode | None:
         # Let's find out how long the list is, then return the middle,
@@ -25,4 +26,6 @@ class Solution:
             head = head.next
 
         return head
+
+
 # @leet end

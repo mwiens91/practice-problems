@@ -63,4 +63,6 @@ class Solution:
             moving_left = max_left <= max_right
 
         return area
+
+
 # @leet end

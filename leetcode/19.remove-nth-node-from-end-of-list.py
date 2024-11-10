@@ -34,4 +34,6 @@ class Solution:
         j.next = j.next.next
 
         return head
+
+
 # @leet end

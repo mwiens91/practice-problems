@@ -2,6 +2,7 @@
 from itertools import islice
 from collections import deque
 
+
 class Solution:
     def maxSlidingWindow(self, nums: list[int], k: int) -> list[int]:
         # NOTE: Using monotonically decreasing queue idea from Neetcode video.
@@ -40,4 +41,6 @@ class Solution:
             solution[i] = max_deque[0]
 
         return solution
+
+
 # @leet end

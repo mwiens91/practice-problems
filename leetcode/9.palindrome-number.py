@@ -1,6 +1,7 @@
 # @leet start
 import math
 
+
 class Solution:
     def isPalindrome(self, x: int) -> bool:
         # Negative is always False, zero always true
@@ -22,4 +23,6 @@ class Solution:
             ten_exponent -= 2
 
         return True
+
+
 # @leet end

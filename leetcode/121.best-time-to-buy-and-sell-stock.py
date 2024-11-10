@@ -1,6 +1,7 @@
 # @leet start
 import math
 
+
 class Solution:
     def maxProfit(self, prices: list[int]) -> int:
         # Initialize the minimum price seen so far (so, in the past),
@@ -14,4 +15,6 @@ class Solution:
             max_profit_seen = max(max_profit_seen, price - min_price_seen)
 
         return max_profit_seen
+
+
 # @leet end

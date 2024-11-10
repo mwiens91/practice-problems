@@ -5,6 +5,7 @@
 #         self.val = val
 #         self.next = next
 
+
 class Solution:
     def reverseList(self, head: ListNode | None) -> ListNode | None:
         # Handle head is None
@@ -28,4 +29,6 @@ class Solution:
 
             prev_node = head
             head = tmp
+
+
 # @leet end

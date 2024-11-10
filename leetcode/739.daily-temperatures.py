@@ -1,6 +1,7 @@
 # @leet start
 import math
 
+
 class Solution:
     def dailyTemperatures(self, temperatures: list[int]) -> list[int]:
         # The thing we'll make use of here is the fact that each
@@ -44,4 +45,6 @@ class Solution:
                 next_warmer_temps[j] = i
 
         return res
+
+
 # @leet end

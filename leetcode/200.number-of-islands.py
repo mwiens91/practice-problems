@@ -2,6 +2,7 @@
 from collections import deque
 import itertools
 
+
 class Solution:
     def numIslands(self, grid: list[list[str]]) -> int:
         # Get grid dimensions
@@ -60,4 +61,6 @@ class Solution:
             counter += 1
 
         return counter
+
+
 # @leet end

@@ -2,6 +2,7 @@
 from collections import Counter
 import heapq
 
+
 class Solution:
     def topKFrequent(self, words: list[str], k: int) -> list[str]:
         # Get a counter of the words that we have
@@ -25,4 +26,6 @@ class Solution:
             res.append(heapq.heappop(heap)[1])
 
         return res
+
+
 # @leet end

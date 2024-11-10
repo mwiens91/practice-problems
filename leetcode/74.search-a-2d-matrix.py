@@ -36,4 +36,6 @@ class Solution:
                 j = mid - 1
 
         return False
+
+
 # @leet end

@@ -2,6 +2,7 @@
 import itertools
 from string import ascii_lowercase
 
+
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
         # Get lengths. If s1 is longer than s2 we can return False.
@@ -41,4 +42,6 @@ class Solution:
 
         # Didn't find a permutation
         return False
+
+
 # @leet end

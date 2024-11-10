@@ -1,6 +1,7 @@
 # @leet start
 import random
 
+
 class RandomizedSet:
 
     def __init__(self):
@@ -42,5 +43,6 @@ class RandomizedSet:
 
     def getRandom(self) -> int:
         return random.choice(self.vals_list)
-# @leet end
 
+
+# @leet end

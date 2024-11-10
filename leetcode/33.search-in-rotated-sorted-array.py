@@ -1,6 +1,7 @@
 # @leet start
 from bisect import bisect_left
 
+
 def find_pivot(i, j, nums):
     """Return the pivot k.
 
@@ -28,6 +29,7 @@ def find_pivot(i, j, nums):
         return find_pivot(i, mid_idx, nums)
 
     return find_pivot(mid_idx, j, nums)
+
 
 class Solution:
     def search(self, nums: list[int], target: int) -> int:
@@ -61,4 +63,6 @@ class Solution:
         target_idx = bisect_left(nums, target, lo, hi)
 
         return target_idx if target_idx != hi and nums[target_idx] == target else -1
+
+
 # @leet end

@@ -17,4 +17,6 @@ class Solution:
             num_ways[i] = num_ways[i - 1] + num_ways[i - 2]
 
         return num_ways[n]
+
+
 # @leet end

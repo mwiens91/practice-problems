@@ -1,6 +1,7 @@
 # @leet start
 from collections import deque
 
+
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         # Go through s, keeping track of what is in the current
@@ -22,7 +23,7 @@ class Solution:
                 # characters seen set. Finally, pop out the repeated
                 # character from the left.
                 while (oldest_char := substr_deque.popleft()) != char:
-                       chars_seen.remove(oldest_char)
+                    chars_seen.remove(oldest_char)
 
                 substr_deque.append(char)
 
@@ -35,4 +36,6 @@ class Solution:
         best = max(best, len(substr_deque))
 
         return best
+
+
 # @leet end

@@ -19,7 +19,7 @@ class Solution:
             while (
                 num != i + 1
                 and lower_threshold < num < upper_threshold
-                and nums[num - 1] != num   # This is for handling duplicates
+                and nums[num - 1] != num  # This is for handling duplicates
             ):
                 # Put num where it belongs, and put the thing where it
                 # moved into i
@@ -37,4 +37,6 @@ class Solution:
 
         # All indices had num == i + 1
         return n + 1
+
+
 # @leet end

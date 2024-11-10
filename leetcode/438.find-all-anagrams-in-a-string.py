@@ -1,6 +1,7 @@
 # @leet start
 from string import ascii_lowercase
 
+
 class Solution:
     def findAnagrams(self, s: str, p: str) -> list[int]:
         # Using a sliding window here and a hash table for character
@@ -40,4 +41,6 @@ class Solution:
                 results.append(i)
 
         return results
+
+
 # @leet end
