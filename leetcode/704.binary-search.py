@@ -12,7 +12,8 @@ class Solution:
 
             if mid_num == target:
                 return mid
-            elif mid_num > target:
+
+            if mid_num > target:
                 right = mid - 1
             else:
                 left = mid + 1

@@ -29,7 +29,8 @@ class Solution:
 
             if mid_num == target:
                 return True
-            elif mid_num < target:
+
+            if mid_num < target:
                 i = mid + 1
             else:
                 # mid_num > target

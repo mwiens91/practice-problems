@@ -8,7 +8,7 @@ class RandomizedSet:
         # idx_dict has numbers we insert as keys and corresponding
         # indices as values. vals_list just stored our values and we get
         # their indices from the dictionary.
-        self.idx_dict = dict()
+        self.idx_dict = {}
         self.vals_list = []
 
     def insert(self, val: int) -> bool:
