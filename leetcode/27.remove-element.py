@@ -12,7 +12,7 @@ class Solution:
         i = 0
         j = n - 1
 
-        while i < j:
+        while True:
             # Move j backwards until it points to a non-val integer
             while i < j:
                 if nums[j] != val:
@@ -27,16 +27,19 @@ class Solution:
 
                 i += 1
 
-            # Swap and set up for next iteration
-            nums[i], nums[j] = nums[j], nums[i]
+            # Swap and set up for next iteration, or break if i >= j
+            if i < j:
+                nums[i], nums[j] = nums[j], nums[i]
 
-            i += 1
-            j -= 1
+                i += 1
+                j -= 1
+            else:
+                break
 
         # Return the number of elements not equal to val. When the
         # above loop terminates, the first ith characters have non-val
         # values. We need to check the ith element though, it may or may
-        # not be val.
+        # not be val (I think?).
         if not nums or nums[i] == val:
             return i
 
