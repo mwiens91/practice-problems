@@ -4,7 +4,11 @@ from collections import deque
 
 class Solution:
     def validPath(
-        self, n: int, edges: list[list[int]], source: int, destination: int
+        self,
+        n: int,  # pylint: disable=unused-argument
+        edges: list[list[int]],
+        source: int,
+        destination: int,
     ) -> bool:
         # Build adjacency lists
         adjacency_dict = {}
