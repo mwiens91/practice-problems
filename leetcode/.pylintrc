@@ -433,6 +433,7 @@ disable=raw-checker-failed,
         use-symbolic-message-instead,
         # The below are added specifically for my leetcode solutions
         dangerous-default-value,
+        duplicate-code,
         fixme,
         inconsistent-return-statements,
         invalid-name,
