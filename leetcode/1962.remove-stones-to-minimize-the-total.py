@@ -8,7 +8,7 @@ class Solution:
         # Put the piles in a max heap. Note that because heapq only
         # operates on min heaps, we need to negate the pile values while
         # they're in the heap.
-        heap = [-pile for piles in pile]
+        heap = [-pile for pile in piles]
         heapq.heapify(heap)
 
         # Get rid of as many stones as possible for each iteration
