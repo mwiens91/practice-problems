@@ -18,7 +18,8 @@ class Solution:
 
             if guess(mid) == 0:
                 return mid
-            elif guess(mid) == 1:
+
+            if guess(mid) == 1:
                 # Mid is lower
                 left = mid + 1
             else:
