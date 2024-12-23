@@ -1,5 +1,4 @@
 # @leet start
-from enum import Enum
 import math
 
 
@@ -9,33 +8,24 @@ class Solution:
         # O(log(m + n)) time complexity. Note that the actual solution
         # has the even smaller time complexity O(log(min(m,n))).
 
-        # We'll want to run a binary search on the smaller of the input
-        # lists, so let's figure out which list is smaller
-        if len(nums1) <= len(nums2):
-            nums_smaller = nums1
-            nums_larger = nums2
-        else:
-            nums_smaller = nums2
-            nums_larger = nums1
-
-        # Suppose for simplicity that m + n is odd. Then if we merged
-        # both arrays of numbers, the median would be the middle number
-        # such that an equal number of elements lie on both sides of it.
-        # We can find this median without formally merging by
-        # partitioning the smaller array into left and right partitions;
-        # once this is chosen we automatically know how to partition the
-        # larger array based on the size of the left and right
-        # partitions of the smaller array. If the partitions satisfy the
-        # property that every number on either left partition is <=
-        # every number on either right partition, then the median is the
-        # smallest number of the combined right partition (if we take
-        # the rule that the right partition contains one greater element
-        # than the left for m + n odd, which we will here). The idea is
-        # that the combined left partition represents all elements to
-        # the left of the median of the theoretically merged array,
-        # while the combined right partition represents all elements to
-        # the left of and including the median of the theoretically
-        # merged array.
+        # General idea: Suppose for simplicity that m + n is odd. Then
+        # if we merged both arrays of numbers, the median would be the
+        # middle number such that an equal number of elements lie on
+        # both sides of it. We can find this median without formally
+        # merging by partitioning the smaller array into left and right
+        # partitions; once this is chosen we automatically know how to
+        # partition the larger array based on the size of the left and
+        # right partitions of the smaller array. If the partitions
+        # satisfy the property that every number on either left
+        # partition is <= every number on either right partition, then
+        # the median is the smallest number of the combined right
+        # partition (if we take the rule that the right partition
+        # contains one greater element than the left for m + n odd,
+        # which we will here). The idea is that the combined left
+        # partition represents all elements to the left of the median of
+        # the theoretically merged array, while the combined right
+        # partition represents all elements to the left of and including
+        # the median of the theoretically merged array.
         #
         # Let's look at an example. Suppose the smaller array was
         #
@@ -68,14 +58,34 @@ class Solution:
         #
         # 2 3 | 4
         # 1   | 4 5 7.
+        #
+        # We can find a valid partitioning scheme efficiently by running
+        # a binary search on the smaller array. Let s_l, s_r be the
+        # values to the left and right of the smaller array separator,
+        # and let l_l, l_r be the corresponding values for the larger
+        # array.
+        #
+        # If l_s > r_l, then we know the left partition of the smaller
+        # array is too large, and we need to move the separator to the
+        # left. If l_l > r_s, then there we need to move the separator
+        # to the right. If neither of those conditions are true, then a
+        # partition is valid.
 
-        # Define function to get values to the left and right of a
-        # separator. The smaller boolean indicates whether to operate on
-        # the smaller array or the larger one.
+        # Determine which array is smaller and which is larger
+        if len(nums1) <= len(nums2):
+            nums_smaller = nums1
+            nums_larger = nums2
+        else:
+            nums_smaller = nums2
+            nums_larger = nums1
+
+        # This function gets values to the left and right of a
+        # separator. For separators that lie at either end of an array,
+        # we define the boundary conditions to the left to be -infinity
+        # and to the right to be positive infinity.
         def get_left_right_vals(
-            idx: int, smaller: bool
+            idx: int, nums: list[int]
         ) -> tuple[int | float, int | float]:
-            nums = nums_smaller if smaller else nums_larger
             nums_len = len(nums)
 
             if idx > 0:
@@ -90,86 +100,57 @@ class Solution:
 
             return (left, right)
 
-        # Define a function which determines whether a given partition
-        # is valid, or, if invalid, whether the left partition of the
-        # smaller array is too small or too large. We let the smaller
-        # separator index be as large as the length of the smaller
-        # array, so we have #elements + 1 available separator positions.
+        # Define convenience functions to call get_left_right_vals for
+        # each array
         smaller_len = len(nums_smaller)
-        larger_len = len(nums_larger)
-        total_len = smaller_len + larger_len
+        total_len = smaller_len + len(nums_larger)
 
-        num_elements_in_left_partition = total_len // 2
+        combined_left_partition_size = total_len // 2
 
-        def get_larger_separator_idx(smaller_separator_idx: int) -> int:
-            return num_elements_in_left_partition - smaller_separator_idx
+        def get_smaller_left_right_vals(
+            smaller_separator_idx: int,
+        ) -> tuple[int | float, int | float]:
+            return get_left_right_vals(smaller_separator_idx, nums_smaller)
 
-        class PartitionResult(Enum):
-            VALID = 1
-            TOO_SMALL = 2
-            TOO_LARGE = 3
-
-        def get_partition_result(smaller_separator_idx: int) -> PartitionResult:
-            smaller_left, smaller_right = get_left_right_vals(
-                smaller_separator_idx, smaller=True
-            )
-            larger_left, larger_right = get_left_right_vals(
-                get_larger_separator_idx(smaller_separator_idx), smaller=False
+        def get_larger_left_right_vals(
+            smaller_separator_idx: int,
+        ) -> tuple[int | float, int | float]:
+            larger_separator_idx = (
+                combined_left_partition_size - smaller_separator_idx
             )
 
-            # If the maximum value of the left partition of the smaller
-            # array is larger than the minimum value of the right
-            # partition of the larger array, the left partition of the
-            # smaller array is too large
-            if smaller_left > larger_right:
-                return PartitionResult.TOO_LARGE
+            return get_left_right_vals(
+                larger_separator_idx, nums_larger
+            )
 
-            # Similarly, if the maximum value fo the left partition of
-            # the smaller array is larger than the minimum value of the
-            # right partition of the smaller array, the left partition
-            # of the smaller array is too small
-            if larger_left > smaller_right:
-                return PartitionResult.TOO_SMALL
-
-            # Partition is valid
-            return PartitionResult.VALID
-
-        # Now that we have the tools we need, we begin to find the
-        # median. We can run a binary search on the smaller array to
-        # find a valid partition. If there are many duplicate elements,
-        # there may be more than one valid partition, but all valid
-        # separator indices will be contiguous.
+        # Run a binary search on the smaller array to find a valid
+        # partition
         left_idx = 0
         right_idx = smaller_len
 
         while True:
             mid_idx = (left_idx + right_idx) // 2
+            print(mid_idx)
 
-            partition_result = get_partition_result(mid_idx)
+            # Get values to the left and right of each array's separator
+            smaller_left, smaller_right = get_smaller_left_right_vals(mid_idx)
+            larger_left, larger_right = get_larger_left_right_vals(mid_idx)
 
-            if partition_result == PartitionResult.VALID:
-                # It's valid, get out
-                valid_smaller_sep_idx = mid_idx
-
+            # Determine how to proceed with the binary search
+            if smaller_left > larger_right:
+                # Too many values in left partition of smaller array
+                right_idx = mid_idx - 1
+            elif larger_left > smaller_right:
+                # Too few values in left partition of smaller array
+                left_idx = mid_idx + 1
+            else:
+                # Valid, get out
                 break
 
-            if partition_result == PartitionResult.TOO_LARGE:
-                right_idx = mid_idx - 1
-            else:
-                # The left partition is too small
-                left_idx = mid_idx + 1
-
-        # Now that we have a valid partition, we find the median. How we
-        # compute it depends on whether the sum of both array lengths is
-        # even or odd. We'll need the values on the left and right of
-        # each separator.
-        smaller_left, smaller_right = get_left_right_vals(
-            valid_smaller_sep_idx, smaller=True
-        )
-        larger_left, larger_right = get_left_right_vals(
-            get_larger_separator_idx(valid_smaller_sep_idx), smaller=False
-        )
-
+        # Now find the median. How we compute it depends on whether the
+        # sum of both array lengths is even or odd. We'll need the
+        # values on the left and right of each separator, but we already
+        # have those in scope from the above code.
         if total_len % 2 == 1:
             # Odd. Median is smallest element of combined right
             # partitions.
