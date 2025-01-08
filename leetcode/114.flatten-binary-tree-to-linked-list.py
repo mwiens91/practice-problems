@@ -6,7 +6,7 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def flatten(self, root: ListNode | None) -> None:
+    def flatten(self, root: TreeNode | None) -> None:
         """
         Do not return anything, modify root in-place instead.
         """
@@ -14,7 +14,7 @@ class Solution:
         # Use a depth-first search and, from the bottom up, merge each
         # nodes left subtree into its right, stacking the left onto the
         # right
-        def recurse(node: ListNode) -> None:
+        def recurse(node: TreeNode) -> None:
             # Depth first
             for child in (node.left, node.right):
                 if child is not None:

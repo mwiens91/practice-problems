@@ -6,10 +6,10 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def invertTree(self, root: ListNode | None) -> ListNode | None:
+    def invertTree(self, root: TreeNode | None) -> TreeNode | None:
         # For each node, we'll swap left and right children, starting
         # from the root to the leaves
-        def invert_tree(node: ListNode | None) -> None:
+        def invert_tree(node: TreeNode | None) -> None:
             # Get out if null node
             if node is None:
                 return

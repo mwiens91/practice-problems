@@ -6,12 +6,12 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def sumNumbers(self, root: ListNode | None) -> int:
+    def sumNumbers(self, root: TreeNode | None) -> int:
         # Idea, do a depth first search and add each root to leaf number
         # to the total sum
         total_sum = 0
 
-        def recurse(node: ListNode, num_str: str) -> None:
+        def recurse(node: TreeNode, num_str: str) -> None:
             nonlocal total_sum
 
             # Base case: at a leaf

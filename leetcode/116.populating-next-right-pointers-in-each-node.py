@@ -12,10 +12,10 @@ class Node:
 
 
 class Solution:
-    def connect(self, root: ListNode | None) -> ListNode | None:
+    def connect(self, root: Node | None) -> Node | None:
         # We'll have two recursive functions. The first sets a given
         # node's left child to point to its right child.
-        def recurse_point_descendants(node: ListNode) -> None:
+        def recurse_point_descendants(node: Node) -> None:
             # If we're at a leaf, get out
             if node.left is None:
                 return
@@ -29,7 +29,7 @@ class Solution:
 
         # The second sets right nodes of a subtree to point to left
         # nodes of a subtree to the right of the first subtree
-        def recurse_point_adjacent(left: ListNode, right: ListNode) -> None:
+        def recurse_point_adjacent(left: Node, right: Node) -> None:
             # If we're at a leaf, get out
             if left.left is None:
                 return

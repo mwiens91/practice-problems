@@ -6,11 +6,11 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def isBalanced(self, root: ListNode | None) -> bool:
+    def isBalanced(self, root: TreeNode | None) -> bool:
         # Get the depth of the subtree rooted at a node. Also assert
         # along the way that each node is balanced. For the case of
         # comparing depths, we take null nodes as having a depth of -1.
-        def get_subtree_depth_rooted_at_node(node: ListNode | None) -> int:
+        def get_subtree_depth_rooted_at_node(node: TreeNode | None) -> int:
             # Base cases: null node
             if node is None:
                 return -1

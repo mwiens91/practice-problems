@@ -6,7 +6,7 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def countNodes(self, root: ListNode | None) -> int:
+    def countNodes(self, root: TreeNode | None) -> int:
         # First handle edge case of null root
         if root is None:
             return 0

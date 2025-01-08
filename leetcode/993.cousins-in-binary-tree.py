@@ -9,7 +9,7 @@ from collections import deque
 
 
 class Solution:
-    def isCousins(self, root: ListNode | None, x: int, y: int) -> bool:
+    def isCousins(self, root: TreeNode | None, x: int, y: int) -> bool:
         # Get out if the root is None or root value is either x or y
         if root is None or root.val in {x, y}:
             return False

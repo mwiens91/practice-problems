@@ -6,7 +6,7 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def isSameTree(self, p: ListNode | None, q: ListNode | None) -> bool:
+    def isSameTree(self, p: TreeNode | None, q: TreeNode | None) -> bool:
         p_stack = [p]
         q_stack = [q]
 

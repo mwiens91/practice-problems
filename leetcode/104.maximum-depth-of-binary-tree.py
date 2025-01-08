@@ -6,11 +6,11 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def maxDepth(self, root: ListNode | None) -> int:
+    def maxDepth(self, root: TreeNode | None) -> int:
         # Use depth-first search to find maximum depth
         max_depth = 0
 
-        def dfs(node: ListNode | None, current_depth: int = 1) -> None:
+        def dfs(node: TreeNode | None, current_depth: int = 1) -> None:
             nonlocal max_depth
 
             # Base case: reached null node, update maximum depth

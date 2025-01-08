@@ -6,7 +6,7 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def pathSum(self, root: ListNode | None, targetSum: int) -> list[list[int]]:
+    def pathSum(self, root: TreeNode | None, targetSum: int) -> list[list[int]]:
         # Store answers here
         answers = []
 

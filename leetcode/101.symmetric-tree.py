@@ -6,7 +6,7 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def isSymmetric(self, root: ListNode | None) -> bool:
+    def isSymmetric(self, root: TreeNode | None) -> bool:
         # Push left and right children to two stacks and compare them
         left_stack = [root]
         right_stack = [root]
