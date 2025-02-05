@@ -7,8 +7,9 @@ class Solution:
         results_len = 1 + max(len(num1_ints_reversed), len(num2_ints_reversed))
         result_ints_reversed = [0] * results_len
 
-        # Add numbers digit by digit
+        # Add numbers digit by digit, including carry-overs
         for i in range(results_len - 1):
+            # Get the digits and carryover
             try:
                 num_1_digit = num1_ints_reversed[i]
             except IndexError:
@@ -19,16 +20,19 @@ class Solution:
             except IndexError:
                 num_2_digit = 0
 
-            digit_sum = num_1_digit + num_2_digit
+            carryover = result_ints_reversed[i]
 
-            result_ints_reversed[i] += digit_sum % 10
-            result_ints_reversed[i + 1] += digit_sum // 10
+            # Use the sum to build the result
+            sum_ = num_1_digit + num_2_digit + carryover
 
-        # Remove a possible leading zero from the (not reversed) result
+            result_ints_reversed[i] = sum_ % 10
+            result_ints_reversed[i + 1] += sum_ // 10
+
+        # Remove a possible leading zero from the final result
         if result_ints_reversed[-1] == 0:
             result_ints_reversed.pop()
 
-        # Build the string
+        # Build the output string
         return "".join([str(x) for x in reversed(result_ints_reversed)])
 
 
