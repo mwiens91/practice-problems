@@ -13,7 +13,6 @@ class RecentCounter:
         self.request_queue.append(t)
 
         # Flush any items that occured before the given interval
-        print(self.request_queue[0], t - self.interval_length, self.request_queue[0] < t - self.interval_length)
         if self.request_queue[0] < t - self.interval_length:
             self.request_queue.popleft()
 
