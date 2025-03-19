@@ -12,7 +12,8 @@ class Solution:
             if x + current_sum > maxSum:
                 # We can't add any more numbers
                 break
-            elif x not in banned_set:
+
+            if x not in banned_set:
                 # Add the current number
                 current_sum += x
                 count += 1
