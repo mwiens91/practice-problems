@@ -9,21 +9,29 @@ class Solution:
         # The number of days in each month, 0-indexed
         NUM_DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
-        # Get the prefix sum of the number of days that have elapsed at
-        # the start of a month, again 0-indexed
-        num_days_elapsed_at_beginning_of_month = [0] + list(
+        # Get the number of days that have elapsed at the start of each
+        # month
+        num_days_elapsed_at_start_of_month = [0] + list(
             itertools.accumulate(NUM_DAYS_IN_MONTH)
         )[:-1]
 
-        # Define a function to get the number of days that have elapsed
-        # since the start of the year given a date MM-DD
-        def get_number_of_days_elapsed(date_str: str) -> int:
-            month, day = date_str.split("-")
-            
-            return num_days_elapsed_at_beginning_of_month[month - 1] + day
+        # Define a function to convert a date string MM-DD to day of
+        # year
+        def get_day_of_year(date_str: str) -> int:
+            month, day = map(int, date_str.split("-"))
 
-        return 5
+            return num_days_elapsed_at_start_of_month[month - 1] + day
+
+        # Find the starting and ending day of year for the intersection
+        # of Alice and Bob's dates
+        intersection_start_day_of_year = max(
+            get_day_of_year(arriveAlice), get_day_of_year(arriveBob)
+        )
+        intersection_end_day_of_year = min(
+            get_day_of_year(leaveAlice), get_day_of_year(leaveBob)
+        )
+
+        return max(0, intersection_end_day_of_year - intersection_start_day_of_year + 1)
 
 
 # @leet end
-
