@@ -1,9 +1,8 @@
 # @leet start
 class Solution:
     def countDays(self, days: int, meetings: list[list[int]]) -> int:
-        # Sort the meetings in ascending order by start day first, then
-        # end day
-        sorted_meetings = sorted(meetings, key=lambda x: (x[0], x[1]))
+        # Sort the meetings in ascending order by start day
+        sorted_meetings = sorted(meetings, key=lambda x: x[0])
 
         # Count the number of days spent in meetings. Since meetings can
         # overlap, we build up the longest interval of days when we
