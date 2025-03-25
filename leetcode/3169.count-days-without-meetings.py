@@ -4,7 +4,6 @@ class Solution:
         # Sort the meetings in ascending order by start day first, then
         # end day
         sorted_meetings = sorted(meetings, key=lambda x: (x[0], x[1]))
-        print(sorted_meetings)
 
         # Count the number of days spent in meetings. Since meetings can
         # overlap, we build up the longest interval of days when we
