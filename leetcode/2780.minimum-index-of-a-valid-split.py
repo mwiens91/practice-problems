@@ -1,7 +1,4 @@
 # @leet start
-from collections import Counter
-
-
 class Solution:
     def minimumIndex(self, nums: list[int]) -> int:
         # Get the dominant element and the number of times it occurs in
