@@ -9,7 +9,7 @@ class Solution:
         # done that.
         n = len(questions)
 
-        max_points_seen = [questions[-1][0]] * n
+        max_seen = [questions[-1][0]] * n
 
         for i in range(n - 2, -1, -1):
             points, brainpower = questions[i]
