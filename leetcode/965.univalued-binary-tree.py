@@ -25,7 +25,8 @@ class Solution:
 
             if node is None:
                 continue
-            elif node.val != root_val:
+
+            if node.val != root_val:
                 return False
 
             queue.extend([node.left, node.right])
