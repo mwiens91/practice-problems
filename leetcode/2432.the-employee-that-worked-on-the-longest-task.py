@@ -1,6 +1,8 @@
 # @leet start
 class Solution:
-    def hardestWorker(self, n: int, logs: list[list[int]]) -> int:
+    def hardestWorker(
+        self, n: int, logs: list[list[int]]  # pylint: disable=unused-argument
+    ) -> int:
         longest_time_employee_id, longest_time = logs[0]
 
         for (_, prev_task_end_time), (employee_id, task_end_time) in zip(
