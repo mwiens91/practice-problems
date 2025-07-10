@@ -10,7 +10,7 @@ class Solution:
         # largest side, we only need to test if for a given largest
         # side, whether the largest possible other sides less than or
         # equal to the largest side can form a triangle.
-        for i in range(n - 2):
+        for i in range(len(nums) - 2):
             if nums[i] < nums[i + 1] + nums[i + 2]:
                 return sum(nums[i : i + 3])
 
