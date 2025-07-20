@@ -15,7 +15,7 @@ class Solution:
             if i % 2 == 1:
                 nums[i] += nums[i // 2 + 1]
 
-                max_value = nums[i]
+                max_value = max(max_value, nums[i])
 
         return max_value
 
