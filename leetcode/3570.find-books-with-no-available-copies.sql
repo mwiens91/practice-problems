@@ -1,4 +1,10 @@
-SELECT lb.book_id, lb.title, lb.author, lb.genre, lb.publication_year, COUNT(*) AS current_borrowers
+SELECT
+    lb.book_id,
+    lb.title,
+    lb.author,
+    lb.genre,
+    lb.publication_year,
+    COUNT(*) AS current_borrowers
 FROM library_books lb INNER JOIN borrowing_records br ON lb.book_id = br.book_id
 WHERE br.return_date IS NULL
 GROUP BY lb.book_id, lb.total_copies
