@@ -1,7 +1,4 @@
 # @leet start
-import re
-
-
 class Solution:
     def reformatDate(self, date: str) -> str:
         day, month, year = date.split()
