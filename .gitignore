@@ -51,7 +51,8 @@ leetcode/package-lock.json
 *.pdb
 
 # Kernel Module Compile Results
-*.mod*
+# *.mod* # this rule ignores some files I want tracked. use below.
+*.mod
 *.cmd
 .tmp_versions/
 modules.order
