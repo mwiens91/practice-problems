@@ -442,10 +442,11 @@ disable=raw-checker-failed,
         missing-module-docstring,
         redefined-builtin,
         too-few-public-methods,
+        too-many-arguments,
+        too-many-branches,
         too-many-locals,
         too-many-return-statements,
         undefined-variable,
-        too-many-branches
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
