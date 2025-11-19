@@ -1,8 +1,8 @@
 # @leet start
 class Solution:
     def balancedStringSplit(self, s: str) -> int:
-        # Greedy solution: increment a balanced stringstring count
-        # whenever the number of Ls equals the number of Rs
+        # Greedy solution: increment a balanced substring count whenever
+        # the number of Ls equals the number of Rs
         num_Ls = 0
         num_Rs = 0
 
