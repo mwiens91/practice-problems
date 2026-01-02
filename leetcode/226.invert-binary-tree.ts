@@ -27,4 +27,3 @@ function invertTree(root: TreeNode | null): TreeNode | null {
   return root;
 }
 // @leet end
-

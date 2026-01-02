@@ -9,7 +9,7 @@ type Fn = (...args: JSONValue[]) => void;
 
 function cancellable(fn: Fn, args: JSONValue[], t: number): Function {
   // Call once and then set on an interval
-  fn(...args)
+  fn(...args);
   const ref = setInterval(fn, t, ...args);
 
   return () => clearInterval(ref);
