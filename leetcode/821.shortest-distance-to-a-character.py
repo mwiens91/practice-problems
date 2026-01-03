@@ -25,7 +25,6 @@ class Solution:
             remaining_range = range(i, n) if left else range(i, -1, -1)
 
             for j in remaining_range:
-                print(j)
                 # Reset distance if we hit the character; else increment
                 if s[j] == c:
                     distance = 0

@@ -23,8 +23,6 @@ class Solution:
         # would occur, if it occurs
         first_position = start
 
-        print(first_position, target)
-
         # Now find the last occurance
         start = first_position
         end = n - 1

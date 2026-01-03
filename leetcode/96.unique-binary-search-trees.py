@@ -18,9 +18,6 @@ class Solution:
 
             for num_left_nodes in range(num_nodes):
                 num_right_nodes = num_nodes - 1 - num_left_nodes
-
-                print(num_nodes, num_left_nodes, num_right_nodes)
-
                 num_trees_possible += memo[num_left_nodes] * memo[num_right_nodes]
 
             memo[num_nodes] = num_trees_possible

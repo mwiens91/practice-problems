@@ -31,7 +31,6 @@ class Solution:
         # Add last part to results
         add_to_results(part_start_idx, n - 1)
 
-        print(results)
         return "".join(results)
 
 

@@ -130,7 +130,6 @@ class Solution:
 
         while True:
             mid_idx = (left_idx + right_idx) // 2
-            print(mid_idx)
 
             # Get values to the left and right of each array's separator
             smaller_left, smaller_right = get_smaller_left_right_vals(mid_idx)

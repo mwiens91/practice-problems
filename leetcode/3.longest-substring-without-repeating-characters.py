@@ -12,7 +12,6 @@ class Solution:
         substr_deque = deque()
 
         for char in s:
-            print(substr_deque)
             if char in chars_seen:
                 # Compare best with the substring that we can no longer
                 # continue

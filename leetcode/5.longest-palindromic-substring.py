@@ -62,7 +62,6 @@ class Solution:
             right = idx + 1
 
             while left >= 0 and right < s_len and s[left] == s[right]:
-                print(left, idx, right)
                 this_length += 2
 
                 left -= 1
