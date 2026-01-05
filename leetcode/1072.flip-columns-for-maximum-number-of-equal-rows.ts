@@ -3,7 +3,7 @@ function maxEqualRowsAfterFlips(matrix: number[][]): number {
   const patternFreqs = new Map<BigInt, number>();
 
   for (const row of matrix) {
-    let pattern= 0n;
+    let pattern = 0n;
 
     for (let i = 1; i < row.length; i++) {
       if (row[i] !== row[i - 1]) {
