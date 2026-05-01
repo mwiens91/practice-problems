@@ -7,28 +7,10 @@
 #         self.right = right
 class Solution:
     def maxDepth(self, root: TreeNode | None) -> int:
-        # Use depth-first search to find maximum depth
-        max_depth = 0
+        if not root:
+            return 0
 
-        def dfs(node: TreeNode | None, current_depth: int = 1) -> None:
-            nonlocal max_depth
-
-            # Base case: reached null node, update maximum depth
-            if node is None:
-                # We need to update using the parent node's depth which,
-                # is the null node's depth minus 1
-                max_depth = max(max_depth, current_depth - 1)
-
-                return
-
-            # Keep recursing
-            for child in (node.left, node.right):
-                dfs(child, current_depth + 1)
-
-        # Find maximum depth
-        dfs(root)
-
-        return max_depth
+        return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
 
 
 # @leet end

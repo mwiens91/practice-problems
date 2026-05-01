@@ -1,31 +1,19 @@
 # @leet start
-from collections import Counter
-
-
 class Solution:
     def longestPalindrome(self, s: str) -> int:
-        # Get counts of characters in s
-        counts = Counter(s)
+        counts: dict[str, int] = {}
 
-        # Keep track of whether we've found an odd count
-        found_odd_count = False
+        for ch in s:
+            counts[ch] = counts.get(ch, 0) + 1
 
-        # Find length of longest palindrome
-        longest_palindrome = 0
+        odd = 0
+        pairs = 0
 
-        for val in counts.values():
-            if not found_odd_count and val % 2 == 1:
-                found_odd_count = True
+        for count in counts.values():
+            pairs += count // 2
+            odd |= count % 2
 
-            # Add each pair of characters
-            longest_palindrome += (val // 2) * 2
-
-        # If we found an odd count, we can put another character in the
-        # middle of the palndrome
-        if found_odd_count:
-            longest_palindrome += 1
-
-        return longest_palindrome
+        return pairs * 2 + odd
 
 
 # @leet end

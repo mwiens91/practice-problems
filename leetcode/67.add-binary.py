@@ -1,30 +1,25 @@
 # @leet start
-from itertools import zip_longest
-
-
 class Solution:
     def addBinary(self, a: str, b: str) -> str:
-        a_list = list(map(int, a))
-        b_list = list(map(int, b))
-
-        # Iterate from most significant digit to least and form result
-        # in reverse order
-        result_reversed: list[int] = []
+        res: list[str] = []
         carry = 0
 
-        for a_digit, b_digit in zip_longest(
-            reversed(a_list), reversed(b_list), fillvalue=0
-        ):
-            digit_sum = a_digit + b_digit + carry
+        for i in range(max(len(a), len(b))):
+            dig_sum = carry
 
-            result_reversed.append(digit_sum % 2)
-            carry = digit_sum // 2
+            if i < len(a):
+                dig_sum += int(a[-1 - i])
 
-        # If there's still a carry, add it to the list
+            if i < len(b):
+                dig_sum += int(b[-1 - i])
+
+            res.append(str(dig_sum % 2))
+            carry = dig_sum // 2
+
         if carry:
-            result_reversed.append(carry)
+            res.append("1")
 
-        return "".join(map(str, reversed(result_reversed)))
+        return "".join(res[::-1])
 
 
 # @leet end

@@ -1,13 +1,20 @@
 # @leet start
-from collections import Counter
-
-
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        s_freq = Counter(s)
-        t_freq = Counter(t)
+        CODE_PT_A = ord("a")
+        counts = [0] * 26
 
-        return s_freq == t_freq
+        for ch in s:
+            counts[ord(ch) - CODE_PT_A] += 1
+
+        for ch in t:
+            counts[ord(ch) - CODE_PT_A] -= 1
+
+        for count in counts:
+            if count != 0:
+                return False
+
+        return True
 
 
 # @leet end

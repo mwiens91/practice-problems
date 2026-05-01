@@ -3,41 +3,29 @@ class Solution:
     def floodFill(
         self, image: list[list[int]], sr: int, sc: int, color: int
     ) -> list[list[int]]:
-        # Get dimensions of image
+        original = image[sr][sc]
+
+        if color == original:
+            return image
+
         num_rows = len(image)
         num_cols = len(image[0])
 
-        # Get original color we need to change cells to
-        original_color = image[sr][sc]
+        stack = [(sr, sc)]
+        image[sr][sc] = color
 
-        # Define a function to change a connected group of the same
-        # colors, and define a seen set so we don't reprocess a cell
-        seen_set: set[tuple[int, int]] = set()
+        while stack:
+            row, col = stack.pop()
 
-        def change_connected_colors(row: int, col: int) -> None:
-            # Change color
-            image[row][col] = color
-
-            # Mark this cell as seen
-            seen_set.add((row, col))
-
-            # Visit adjacent cells of same color
-            for adj_row, adj_col in [
-                (row + 1, col),
-                (row - 1, col),
-                (row, col + 1),
-                (row, col - 1),
-            ]:
+            for delta_row, delta_col in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
                 if (
-                    0 <= adj_row < num_rows
-                    and 0 <= adj_col < num_cols
-                    and (adj_row, adj_col) not in seen_set
-                    and image[adj_row][adj_col] == original_color
+                    0 <= row + delta_row < num_rows
+                    and 0 <= col + delta_col < num_cols
+                    and image[row + delta_row][col + delta_col] == original
                 ):
-                    change_connected_colors(adj_row, adj_col)
+                    image[row + delta_row][col + delta_col] = color
 
-        # Do the flood fill
-        change_connected_colors(sr, sc)
+                    stack.append((row + delta_row, col + delta_col))
 
         return image
 

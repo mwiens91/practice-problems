@@ -7,21 +7,13 @@
 #         self.right = right
 class Solution:
     def invertTree(self, root: TreeNode | None) -> TreeNode | None:
-        # For each node, we'll swap left and right children, starting
-        # from the root to the leaves
-        def invert_tree(node: TreeNode | None) -> None:
-            # Get out if null node
-            if node is None:
-                return
+        if not root:
+            return None
 
-            # Swap left and right children
-            node.left, node.right = node.right, node.left
+        root.left, root.right = root.right, root.left
 
-            # Recurse
-            invert_tree(node.left)
-            invert_tree(node.right)
-
-        invert_tree(root)
+        self.invertTree(root.left)
+        self.invertTree(root.right)
 
         return root
 

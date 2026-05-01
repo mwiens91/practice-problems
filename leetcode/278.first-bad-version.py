@@ -5,19 +5,18 @@
 
 class Solution:
     def firstBadVersion(self, n: int) -> int:
-        # Do a variant of a binary search
-        i = 1
-        j = n
+        left = 1
+        right = n
 
-        while i < j:
-            mid = (i + j) // 2
+        while left <= right:
+            mid = (left + right) // 2
 
             if isBadVersion(mid):
-                j = mid
+                right = mid - 1
             else:
-                i = mid + 1
+                left = mid + 1
 
-        return i
+        return left
 
 
 # @leet end

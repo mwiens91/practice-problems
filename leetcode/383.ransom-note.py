@@ -1,14 +1,17 @@
 # @leet start
-from collections import Counter
-
-
 class Solution:
     def canConstruct(self, ransomNote: str, magazine: str) -> bool:
-        magazine_counter = Counter(magazine)
+        CODE_POINT_A = ord("a")
+        counts = [0] * 26
 
-        for char, count in Counter(ransomNote).items():
-            if count > magazine_counter[char]:
+        for ch in magazine:
+            counts[ord(ch) - CODE_POINT_A] += 1
+
+        for ch in ransomNote:
+            if not counts[ord(ch) - CODE_POINT_A]:
                 return False
+
+            counts[ord(ch) - CODE_POINT_A] -= 1
 
         return True
 

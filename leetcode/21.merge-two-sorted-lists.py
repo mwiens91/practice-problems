@@ -4,49 +4,45 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
-
-
 class Solution:
     def mergeTwoLists(
         self, list1: ListNode | None, list2: ListNode | None
     ) -> ListNode | None:
-        # Deal with None in input here rather than complicate below loop
-        # logic
-        if list1 is None:
-            return list2
-
-        if list2 is None:
+        if not list2:
             return list1
 
-        # Invariant for below loop: list1.val <= list2.val
-        if list1.val > list2.val:
-            list1, list2 = list2, list1
+        if not list1:
+            return list2
 
-        # Idea here is that we're going to merge list2 things into list1
-        answer_head = list1
+        # Setup head and tail
+        head: ListNode | None = None
 
-        while True:
-            if list1.next is None:
-                # Merge the rest of list2 onto list1
-                list1.next = list2
+        if list1.val < list2.val:
+            head = list1
+            list1 = list1.next
+        else:
+            head = list2
+            list2 = list2.next
 
-                break
+        tail = head
 
-            if list2.val <= list1.next.val:
-                # Splice current list2 node into list1's next position
-                # while moving forward on list2
-                temp = list1.next
-                list1.next = list2
-                list2 = list2.next
-                list1.next.next = temp
-
-                if list2 is None:
-                    break
-            else:
-                # Move forward on list1
+        # Merge
+        while list1 and list2:
+            if list1.val < list2.val:
+                tail.next = list1
                 list1 = list1.next
+            else:
+                tail.next = list2
+                list2 = list2.next
 
-        return answer_head
+            tail = tail.next
+
+        if list1:
+            tail.next = list1
+        else:
+            tail.next = list2
+
+        return head
 
 
 # @leet end

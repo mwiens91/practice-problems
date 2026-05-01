@@ -7,35 +7,20 @@
 #         self.right = right
 class Solution:
     def diameterOfBinaryTree(self, root: TreeNode | None) -> int:
-        # This is a slightly simpler version of LeetCode 687. I'm going
-        # to use a stripped down solution of what I did there, with less
-        # explanation.
-        longest_path = 0
+        return self.helper(root)[1]
 
-        def get_longest_left_or_right_path(node: TreeNode) -> int:
-            # Return longest left or right path and update longest path
-            # using current node as part of a path containing both left
-            # and right subtree paths
-            nonlocal longest_path
+    # Return height of current and length of longest path seen
+    def helper(self, root: TreeNode | None) -> tuple[int, int]:
+        if not root:
+            return (-1, 0)
 
-            children = [node.left, node.right]
-            child_path_lengths = [0, 0]
+        left_height, left_best = self.helper(root.left)
+        right_height, right_best = self.helper(root.right)
 
-            for i, child in enumerate(children):
-                if child is not None:
-                    child_path_lengths[i] = 1 + get_longest_left_or_right_path(child)
+        this_height = max(left_height, right_height) + 1
+        this_best = max(left_best, right_best, left_height + right_height + 2)
 
-            # Use current node as part of path containing left and right
-            # paths
-            longest_path = max(longest_path, sum(child_path_lengths))
-
-            # Return maximum of left or right paths
-            return max(child_path_lengths)
-
-        if root is not None:
-            get_longest_left_or_right_path(longest_path)
-
-        return longest_path
+        return (this_height, this_best)
 
 
 # @leet end
