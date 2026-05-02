@@ -5,27 +5,23 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-import math
+from math import inf
 
 
 class Solution:
     def isValidBST(self, root: TreeNode | None) -> bool:
-        def validate_subtree(
-            node: TreeNode | None,
-            min_val: int | float = -math.inf,
-            max_val: int | float = math.inf,
-        ) -> bool:
-            if node is None:
-                return True
+        return self.helper(root, -inf, inf)
 
-            if not min_val <= node.val <= max_val:
-                return False
+    def helper(self, node: TreeNode | None, min_: int, max_: int) -> bool:
+        if not node:
+            return True
 
-            return validate_subtree(
-                node.left, min_val, node.val - 1
-            ) and validate_subtree(node.right, node.val + 1, max_val)
+        if node.val <= min_ or node.val >= max_:
+            return False
 
-        return validate_subtree(root)
+        return self.helper(node.left, min_, min(max_, node.val)) and self.helper(
+            node.right, max(min_, node.val), max_
+        )
 
 
 # @leet end

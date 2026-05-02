@@ -1,34 +1,21 @@
 # @leet start
 class Solution:
     def productExceptSelf(self, nums: list[int]) -> list[int]:
-        # Get length of nums
-        nums_len = len(nums)
+        # Initialize res[i] to store the product of the last n - 1 - i
+        # numbers
+        res = [1] * len(nums)
 
-        # We're going to calculate the prefix product first and store it
-        # in our solution array. We'll calculate the suffix product
-        # later and multiply those terms straight into the solution
-        # array, rather than creating separate arrays for the products
-        # and multiplying them later
-        solution = [0] * nums_len
+        for i in range(len(nums) - 2, -1, -1):
+            res[i] = nums[i + 1] * res[i + 1]
 
-        # Prefix
-        last_prefix_prod = 1
+        # Products except self
+        prefix_prod = nums[0]
 
-        for i in range(nums_len):
-            solution[i] = last_prefix_prod
+        for i in range(1, len(nums)):
+            res[i] *= prefix_prod
+            prefix_prod *= nums[i]
 
-            # Set up for next iteration
-            last_prefix_prod *= nums[i]
-
-        # Suffix
-        last_suffix_prod = 1
-        for i in range(nums_len - 1, -1, -1):
-            solution[i] *= last_suffix_prod
-
-            # Set up for next iteration
-            last_suffix_prod *= nums[i]
-
-        return solution
+        return res
 
 
 # @leet end

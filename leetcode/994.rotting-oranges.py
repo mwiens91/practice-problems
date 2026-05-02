@@ -1,58 +1,48 @@
 # @leet start
-from collections import deque
-import itertools
-from typing import Deque
-
-
 class Solution:
     def orangesRotting(self, grid: list[list[int]]) -> int:
-        # This is a multi-source BFS problem. First enqueue all rotting
-        # oranges. The queue contains a row, column, and time at which
-        # the orange rotted.
-        num_rows = len(grid)
-        num_cols = len(grid[0])
+        FRESH = 1
+        ROTTING = 2
 
-        FRESH_ORANGE = 1
-        ROTTEN_ORANGE = 2
+        rows = len(grid)
+        cols = len(grid[0])
 
-        queue: Deque[tuple[int, int, int]] = deque()
+        level: list[tuple[int, int]] = []
+        fresh_count = 0
 
-        for row, col in itertools.product(range(num_rows), range(num_cols)):
-            if grid[row][col] == ROTTEN_ORANGE:
-                queue.appendleft((row, col, 0))
+        for row in range(rows):
+            for col in range(cols):
+                if grid[row][col] == ROTTING:
+                    level.append((row, col))
+                elif grid[row][col] == FRESH:
+                    fresh_count += 1
 
-        # Next, in the loop we'll infect neighbours until there's
-        # nothing left to infect
+        # Multi-source BFS
         time = 0
 
-        while queue:
-            # Unpack rotten orange
-            row, col, time_rotted = queue.pop()
+        while level:
+            next_level: list[tuple[int, int]] = []
 
-            # Set global time
-            time = time_rotted
+            for row, col in level:
+                for delta_row, delta_col in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                    adj_row = row + delta_row
+                    adj_col = col + delta_col
 
-            # Infect neighbours
-            for adj_row, adj_col in [
-                (row + 1, col),
-                (row - 1, col),
-                (row, col + 1),
-                (row, col - 1),
-            ]:
-                if (
-                    0 <= adj_row < num_rows
-                    and 0 <= adj_col < num_cols
-                    and grid[adj_row][adj_col] == FRESH_ORANGE
-                ):
-                    grid[adj_row][adj_col] = ROTTEN_ORANGE
-                    queue.appendleft((adj_row, adj_col, time + 1))
+                    if (
+                        0 <= adj_row < rows
+                        and 0 <= adj_col < cols
+                        and grid[adj_row][adj_col] == FRESH
+                    ):
+                        next_level.append((adj_row, adj_col))
+                        grid[adj_row][adj_col] = ROTTING
+                        fresh_count -= 1
 
-        # Ensure there are no fresh oranges left
-        for row, col in itertools.product(range(num_rows), range(num_cols)):
-            if grid[row][col] == FRESH_ORANGE:
-                return -1
+            level = next_level
 
-        return time
+            if level:
+                time += 1
+
+        return time if fresh_count == 0 else -1
 
 
 # @leet end

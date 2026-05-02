@@ -1,66 +1,40 @@
 # @leet start
-from collections import deque
-import itertools
-
-
 class Solution:
     def numIslands(self, grid: list[list[str]]) -> int:
-        # Get grid dimensions
-        n = len(grid)
-        m = len(grid[0])
+        LAND = "1"
 
-        # Convenience function to tell if an index (i, j) is water:
-        # either a cell with "0" or out of bounds
-        def is_water(i: int, j: int) -> bool:
-            # Is this out of bounds?
-            if not (0 <= i < n and 0 <= j < m):
-                return True
+        rows = len(grid)
+        cols = len(grid[0])
 
-            # Is this "0"?
-            if grid[i][j] == "0":
-                return True
+        count = 0
 
-            # Is "1" (not water)
-            return False
+        def dfs(x: int, y: int) -> None:
+            """Set all connected land to '-1'."""
+            stack = [(x, y)]
+            grid[x][y] = "-1"
 
-        # Initialize a set which holds which indices we've seen
-        seen_set = set()
+            while stack:
+                row, col = stack.pop()
 
-        # Initialize a counter which holds the number of islands we've
-        # processed
-        counter = 0
+                for delta_row, delta_col in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+                    adj_row = row + delta_row
+                    adj_col = col + delta_col
 
-        for i, j in itertools.product(range(n), range(m)):
-            # Continue if we've already processed the index or if the
-            # index contains water
-            if (i, j) in seen_set or grid[i][j] == "0":
-                continue
+                    if (
+                        0 <= adj_row < rows
+                        and 0 <= adj_col < cols
+                        and grid[adj_row][adj_col] == LAND
+                    ):
+                        stack.append((adj_row, adj_col))
+                        grid[adj_row][adj_col] = "-1"
 
-            # We've encountered new land here: set up a deque with this
-            # index, and add this index to the seen set
-            to_process_deque = deque([(i, j)])
-            seen_set.add((i, j))
+        for row in range(rows):
+            for col in range(cols):
+                if grid[row][col] == LAND:
+                    dfs(row, col)
+                    count += 1
 
-            while to_process_deque:
-                # Pop out the head node
-                i, j = to_process_deque.pop()
-
-                # Find adjacent land we haven't seen yet
-                for idx in ((i - 1, j), (i + 1, j), (i, j - 1), (i, j + 1)):
-                    # If we've already seen the index or it's water,
-                    # continue
-                    if idx in seen_set or is_water(*idx):
-                        continue
-
-                    # Process this later: put back of deque
-                    to_process_deque.appendleft(idx)
-
-                    # Mark index as seen
-                    seen_set.add(idx)
-
-            counter += 1
-
-        return counter
+        return count
 
 
 # @leet end

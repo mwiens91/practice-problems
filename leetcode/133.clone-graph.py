@@ -1,43 +1,36 @@
 # @leet start
+"""
 # Definition for a Node.
 class Node:
-    def __init__(self, val=0, neighbors=None):
-        self.val: int = val
-        self.neighbors: list[Node] = neighbors if neighbors is not None else []
+    def __init__(self, val = 0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+"""
 
 
 class Solution:
     def cloneGraph(self, node: Node | None) -> Node | None:
-        if node is None:
+        if not node:
             return None
 
-        val_to_node_dict: dict[int, Node] = {}
-        original_node_stack = [node]
-        seen_node_vals = set([node.val])
+        val_to_clone = {node.val: Node(node.val)}
+        stack = [node]
 
-        def get_or_construct_cloned_node(val: int) -> Node:
-            if val not in val_to_node_dict:
-                val_to_node_dict[val] = Node(val)
+        while stack:
+            curr = stack.pop()
+            clone = val_to_clone[curr.val]
+            clone_neighbors = []
 
-            return val_to_node_dict[val]
+            for adj_node in curr.neighbors:
+                if adj_node.val not in val_to_clone:
+                    val_to_clone[adj_node.val] = Node(adj_node.val)
+                    stack.append(adj_node)
 
-        while original_node_stack:
-            # Get current node and its clone. The clone may have been
-            # constructed already with its value but we need to fill in
-            # its neighbour list
-            original_node = original_node_stack.pop()
-            cloned_node = get_or_construct_cloned_node(original_node.val)
+                clone_neighbors.append(val_to_clone[adj_node.val])
 
-            for original_neighbor in original_node.neighbors:
-                cloned_node.neighbors.append(
-                    get_or_construct_cloned_node(original_neighbor.val)
-                )
+            clone.neighbors = clone_neighbors
 
-                if original_neighbor.val not in seen_node_vals:
-                    original_node_stack.append(original_neighbor)
-                    seen_node_vals.add(original_neighbor.val)
-
-        return val_to_node_dict[1]
+        return val_to_clone[node.val]
 
 
 # @leet end
