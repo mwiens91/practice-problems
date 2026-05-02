@@ -7,26 +7,26 @@
 #         self.right = right
 class Solution:
     def levelOrder(self, root: TreeNode | None) -> list[list[int]]:
-        result: list[list[int]] = []
-        stack = [(root, 0)]
+        level = [root]
+        res: list[list[int]] = []
 
-        while stack:
-            node, depth = stack.pop()
+        while level:
+            level_values: list[int] = []
+            next_level: list[TreeNode | None] = []
 
-            if node is None:
-                continue
+            for node in level:
+                if not node:
+                    continue
 
-            if len(result) > depth:
-                result[depth].append(node.val)
-            else:
-                # This is okay because if we visit a new depth it's
-                # guaranteed to be exactly one deeper than the
-                # previously visited depth
-                result.append([node.val])
+                level_values.append(node.val)
+                next_level.extend([node.left, node.right])
 
-            stack.extend([(node.right, depth + 1), (node.left, depth + 1)])
+            if level_values:
+                res.append(level_values)
 
-        return result
+            level = next_level
+
+        return res
 
 
 # @leet end
