@@ -3,32 +3,45 @@ class Solution:
     def insert(
         self, intervals: list[list[int]], newInterval: list[int]
     ) -> list[list[int]]:
-        # This is nearly just a copy of merge intervals
+        # Starting interval to merge (inclusive)
+        left = 0
+        right = len(intervals) - 1
 
-        # Add the new interval and sort the input by increasing starting
-        # time
-        intervals.append(newInterval)
-        intervals.sort()
+        while left <= right:
+            mid = (left + right) // 2
 
-        # Store the current interval and all merged intervals
-        current_start, current_end = intervals[0]
-        merged_intervals = []
-
-        for this_start, this_end in intervals:
-            if this_start <= current_end:
-                # Overlap, so merge
-                current_end = max(current_end, this_end)
+            if intervals[mid][1] >= newInterval[0]:
+                right = mid - 1
             else:
-                # No overlap, store old and start new interval
-                merged_intervals.append([current_start, current_end])
+                left = mid + 1
 
-                current_start = this_start
-                current_end = this_end
+        start = left
 
-        # Store the final interval
-        merged_intervals.append([current_start, current_end])
+        # End interval to merge (exclusive)
+        left = start
+        right = len(intervals) - 1
 
-        return merged_intervals
+        while left <= right:
+            mid = (left + right) // 2
+
+            if intervals[mid][0] > newInterval[1]:
+                right = mid - 1
+            else:
+                left = mid + 1
+
+        end = left
+
+        # Merge
+        merged = (
+            [
+                min(newInterval[0], intervals[start][0]),
+                max(newInterval[1], intervals[end - 1][1]),
+            ]
+            if start < end
+            else newInterval
+        )
+
+        return intervals[:start] + [merged] + intervals[end:]
 
 
 # @leet end

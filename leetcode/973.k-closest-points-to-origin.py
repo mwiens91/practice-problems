@@ -4,23 +4,16 @@ import heapq
 
 class Solution:
     def kClosest(self, points: list[list[int]], k: int) -> list[list[int]]:
-        # min_heap is is a min heap of points. Each point is represented
-        # by a tuple where the first element is proportional to the
-        # distance, and the second element is a list [x, y] containing
-        # the coordinates of the point.
-        min_heap: list[tuple[int, list[int]]] = [
-            (x**2 + y**2, [x, y]) for x, y in points
-        ]
+        heap = [(x**2 + y**2, i) for i, (x, y) in enumerate(points)]
+        heapq.heapify(heap)
 
-        heapq.heapify(min_heap)
-
-        # Get the k cloesest points
-        results: list[list[int]] = []
+        res: list[list[int]] = []
 
         for _ in range(k):
-            results.append(heapq.heappop(min_heap)[1])
+            _, i = heapq.heappop(heap)
+            res.append(points[i])
 
-        return results
+        return res
 
 
 # @leet end
