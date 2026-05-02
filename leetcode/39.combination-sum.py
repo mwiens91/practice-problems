@@ -1,38 +1,31 @@
 # @leet start
 class Solution:
     def combinationSum(self, candidates: list[int], target: int) -> list[list[int]]:
-        # Get the number of candidates
-        n = len(candidates)
+        candidates.sort()
 
-        # Store the results here
-        combinations = []
+        res: list[list[int]] = []
+        curr: list[int] = []
 
-        # Define a recursive function to generate unique combinations
-        # that sum to target. There might be a fancier way of solving
-        # this problem, but this works.
-        def recurse(idx: int = 0, current_sum: int = 0, nums: list[int] = []) -> None:
-            # Base case: if we're >= target
-            if current_sum >= target:
-                if current_sum == target:
-                    combinations.append(nums)
-
+        def backtrack(i: int, accum: int) -> None:
+            """i is candidate index, accum is sum of curr."""
+            if accum == target:
+                res.append(curr[:])
                 return
 
-            # Try adding the candidate this index points to the current
-            # sum, or move to the next index (but don't add it to the
-            # current sum yet—this ensures that we'll get all valid
-            # combinations)
-            this_num = candidates[idx]
+            for j in range(i, len(candidates)):
+                new_accum = accum + candidates[j]
 
-            recurse(idx, current_sum + this_num, nums + [this_num])
+                # Early return optimization
+                if new_accum > target:
+                    break
 
-            if idx < n - 1:
-                recurse(idx + 1, current_sum, nums)
+                curr.append(candidates[j])
+                backtrack(j, new_accum)
+                curr.pop()
 
-        # Recurse
-        recurse()
+        backtrack(0, 0)
 
-        return combinations
+        return res
 
 
 # @leet end

@@ -5,30 +5,27 @@
 #         self.val = x
 #         self.left = None
 #         self.right = None
+
+
 class Solution:
     def lowestCommonAncestor(
         self, root: TreeNode, p: TreeNode, q: TreeNode
     ) -> TreeNode:
-        # NOTE: used ChatGPT for hints
+        return self.helper(root, p, q)
 
-        # This function returns None if neither p nor q exist in the
-        # subtree, p if only p exists in the subtree, q if only q exists
-        # in the subtree, and the LCA if both p and q exist in the
-        # subtree
-        def get_lca(node: TreeNode | None) -> TreeNode | None:
-            if node is None or node == p or node == q:
-                return node
+    def helper(
+        self, root: TreeNode | None, p: TreeNode, q: TreeNode
+    ) -> TreeNode | None:
+        if not root or root in (p, q):
+            return root
 
-            left = get_lca(node.left)
-            right = get_lca(node.right)
+        left = self.helper(root.left, p, q)
+        right = self.helper(root.right, p, q)
 
-            if left is not None and right is not None:
-                # Found LCA
-                return node
+        if left and right:
+            return root
 
-            return left if left is not None else right
-
-        return get_lca(root)
+        return left or right
 
 
 # @leet end

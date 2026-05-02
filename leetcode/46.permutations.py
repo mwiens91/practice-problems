@@ -1,23 +1,20 @@
 # @leet start
 class Solution:
     def permute(self, nums: list[int]) -> list[list[int]]:
-        # Store results in a list
-        results = []
+        res: list[list[int]] = []
 
-        # Define recursive function to generate permutations
-        def recurse(nums_to_add: list, accum: list) -> None:
-            # Base case
-            if not nums_to_add:
-                results.append(accum)
+        def backtrack(i: int) -> None:
+            if i == len(nums):
+                res.append(nums[:])
 
-            # Generate permutations
-            for i, x in enumerate(nums_to_add):
-                recurse(nums_to_add[:i] + nums_to_add[i + 1 :], accum + [x])
+            for j in range(i, len(nums)):
+                nums[i], nums[j] = nums[j], nums[i]
+                backtrack(i + 1)
+                nums[i], nums[j] = nums[j], nums[i]
 
-        # Return all permutations
-        recurse(nums, [])
+        backtrack(0)
 
-        return results
+        return res
 
 
 # @leet end
