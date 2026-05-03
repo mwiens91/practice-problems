@@ -2,29 +2,26 @@
 class MinStack:
 
     def __init__(self):
-        # Vals will hold the values. For a value in vals, the
-        # corresponding index in min_vals will contain the minimum value
-        # seen in the stack at the time of the value's insertion.
-        self.vals = []
-        self.min_vals = []
+        self.dec_stack: list[int] = []
+        self.stack: list[int] = []
 
     def push(self, val: int) -> None:
-        self.vals.append(val)
+        if not self.dec_stack or val <= self.dec_stack[-1]:
+            self.dec_stack.append(val)
 
-        if self.min_vals:
-            self.min_vals.append(min(val, self.min_vals[-1]))
-        else:
-            self.min_vals.append(val)
+        self.stack.append(val)
 
     def pop(self) -> None:
-        self.vals.pop()
-        self.min_vals.pop()
+        res = self.stack.pop()
+
+        if res == self.dec_stack[-1]:
+            self.dec_stack.pop()
 
     def top(self) -> int:
-        return self.vals[-1]
+        return self.stack[-1]
 
     def getMin(self) -> int:
-        return self.min_vals[-1]
+        return self.dec_stack[-1]
 
 
 # Your MinStack object will be instantiated and called as such:
