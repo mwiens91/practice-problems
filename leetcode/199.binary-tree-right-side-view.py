@@ -7,23 +7,21 @@
 #         self.right = right
 class Solution:
     def rightSideView(self, root: TreeNode | None) -> list[int]:
-        result: list[int] = []
-        stack: list[TreeNode | None] = [(root, 0)]
+        res: list[int] = []
+        level: list[TreeNode] = [root] if root else []
 
-        while stack:
-            node, depth = stack.pop()
+        while level:
+            res.append(level[-1].val)
+            next_level: list[TreeNode] = []
 
-            if node is None:
-                continue
+            for node in level:
+                for child in (node.left, node.right):
+                    if child:
+                        next_level.append(child)
 
-            # If we encounter a new depth it will always be
-            # one deeper than the previous max depth
-            if depth >= len(result):
-                result.append(node.val)
+            level = next_level
 
-            stack.extend([(node.left, depth + 1), (node.right, depth + 1)])
-
-        return result
+        return res
 
 
 # @leet end

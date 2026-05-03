@@ -1,25 +1,21 @@
 # @leet start
 class Solution:
     def wordBreak(self, s: str, wordDict: list[str]) -> bool:
-        # Use memoization
-        memo: dict[str, bool] = {"": True}
+        wordDict.sort(key=len)
 
-        def can_break_word(str_: str) -> bool:
-            if str_ in memo:
-                return memo[str_]
+        # Is it possible to end at this exclusive index?
+        dp: list[bool] = [False] * (len(s) + 1)
+        dp[0] = True
 
-            # Try each word to fit into the string
+        for i in range(1, len(s) + 1):
             for word in wordDict:
-                if str_.startswith(word) and can_break_word(str_[len(word) :]):
-                    memo[str_] = True
+                if len(word) > i:
+                    break
 
-                    return True
+                if word == s[i - len(word) : i]:
+                    dp[i] |= dp[i - len(word)]
 
-            memo[str_] = False
-
-            return False
-
-        return can_break_word(s)
+        return dp[len(s)]
 
 
 # @leet end
