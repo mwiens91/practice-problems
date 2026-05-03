@@ -1,28 +1,24 @@
 # @leet start
+from operator import itemgetter
+
+
 class Solution:
     def merge(self, intervals: list[list[int]]) -> list[list[int]]:
-        # Sort the input by increasing starting time
-        intervals.sort()
+        intervals.sort(key=itemgetter(0))
 
-        # Store the current interval and all merged intervals
-        current_start, current_end = intervals[0]
-        merged_intervals = []
+        res: list[list[int]] = []
+        curr = intervals[0]
 
-        for this_start, this_end in intervals:
-            if this_start <= current_end:
-                # Overlap, so merge
-                current_end = max(current_end, this_end)
+        for i in range(1, len(intervals)):
+            if intervals[i][0] <= curr[1]:
+                curr[1] = max(curr[1], intervals[i][1])
             else:
-                # No overlap, store old and start new interval
-                merged_intervals.append([current_start, current_end])
+                res.append(curr)
+                curr = intervals[i]
 
-                current_start = this_start
-                current_end = this_end
+        res.append(curr)
 
-        # Store the final interval
-        merged_intervals.append([current_start, current_end])
-
-        return merged_intervals
+        return res
 
 
 # @leet end

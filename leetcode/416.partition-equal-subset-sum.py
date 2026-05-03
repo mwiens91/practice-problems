@@ -1,23 +1,29 @@
 # @leet start
 class Solution:
     def canPartition(self, nums: list[int]) -> bool:
-        total_sum = sum(nums)
+        total = sum(nums)
 
-        if total_sum % 2 == 1:
+        if total % 2 == 1:
             return False
 
-        # This is an 0/1 knapsack variant. dp[c] tells us if we can form
-        # the sum c using the first i elements of nums, where i is the
-        # iteration count of the outer loop below.
-        target = total_sum // 2
-        dp = [False] * (target + 1)
-        dp[0] = True
+        target = total // 2
+        sums = {0}
 
         for num in nums:
-            for c in range(target, num - 1, -1):
-                dp[c] |= dp[c - num]
+            new_sums: set[int] = set()
 
-        return dp[target]
+            for sum_ in sums:
+                new_sum = num + sum_
+
+                if new_sum == target:
+                    return True
+
+                if new_sum < target:
+                    new_sums.add(new_sum)
+
+            sums.update(new_sums)
+
+        return False
 
 
 # @leet end
