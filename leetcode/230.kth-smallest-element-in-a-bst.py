@@ -7,26 +7,29 @@
 #         self.right = right
 class Solution:
     def kthSmallest(self, root: TreeNode | None, k: int) -> int:
-        # In-order traversal goes in sorted order for a BST
-        count = 0
-        stack: list[TreeNode] = []
-        current = root
+        res = -1
 
-        while True:
-            # Go left
-            while current is not None:
-                stack.append(current)
-                current = current.left
+        def inorder(root: TreeNode | None) -> bool:
+            nonlocal k, res
 
-            # Process next node in-order
-            current = stack.pop()
-            count += 1
+            if not root:
+                return False
 
-            if count == k:
-                return current.val
+            if inorder(root.left):
+                return True
 
-            # Go right
-            current = current.right
+            k -= 1
+
+            if k == 0:
+                res = root.val
+
+                return True
+
+            return inorder(root.right)
+
+        inorder(root)
+
+        return res
 
 
 # @leet end
