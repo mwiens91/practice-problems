@@ -6,7 +6,6 @@ class CombinationIterator:
         self.k = combinationLength
         self.n = len(characters)
         self.idxs = list(range(combinationLength))
-        self.temp = 0
 
     def next(self) -> str:
         res = "".join(self.s[i] for i in self.idxs)
