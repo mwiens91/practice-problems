@@ -2,7 +2,7 @@
 class Solution:
     def processQueries(self, queries: list[int], m: int) -> list[int]:
         res: list[int] = []
-        perm = [i for i in range(1, m + 1)]
+        perm = list(range(1, m + 1))
         pos = [i - 1 for i in range(m + 1)]
 
         for q in queries:

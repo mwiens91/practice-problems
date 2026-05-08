@@ -12,7 +12,7 @@ class Solution:
         for num in hand:
             counts[num] = counts.get(num, 0) + 1
 
-        for i, num in enumerate(sorted(counts.keys())):
+        for num in sorted(counts.keys()):
             for _ in range(counts[num]):
                 j = 1
 
