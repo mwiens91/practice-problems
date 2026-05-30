@@ -1,7 +1,6 @@
 # @leet start
 from collections import deque
 
-
 FAILURE = -1
 
 

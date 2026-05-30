@@ -12,4 +12,5 @@ class Solution:
         # will lose
         return n % 2 == 0
 
+
 # @leet end

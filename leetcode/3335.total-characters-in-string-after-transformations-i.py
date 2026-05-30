@@ -7,7 +7,7 @@ class Solution:
         freqs = [0] * 26
 
         for char in s:
-            freqs[ord(char) - ord('a')] += 1
+            freqs[ord(char) - ord("a")] += 1
 
         # Do 26 transformations at a time until we're under 26
         # transformations

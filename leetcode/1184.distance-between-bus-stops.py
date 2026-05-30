@@ -7,7 +7,7 @@ class Solution:
         second = max(start, destination)
 
         return min(
-            sum(distance[first : second]),
+            sum(distance[first:second]),
             sum(distance[:first]) + sum(distance[second:]),
         )
 

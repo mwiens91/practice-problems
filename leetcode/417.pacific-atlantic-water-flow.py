@@ -13,7 +13,7 @@ class Solution:
 
         # Call this function to find cells reachable from given points
         def find_reachable_cells(
-            initial_points: list[tuple[int, int]]
+            initial_points: list[tuple[int, int]],
         ) -> list[list[bool]]:
             # Initialize the output array
             reachable_matrix = [[False] * num_cols for _ in range(num_rows)]

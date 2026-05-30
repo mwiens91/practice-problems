@@ -9,14 +9,14 @@ class Node:
 
 
 class Solution:
-    def levelOrder(self, root: 'Node') -> list[list[int]]:
+    def levelOrder(self, root: "Node") -> list[list[int]]:
         if root is None:
             return []
 
         levels_list: list[list[int]] = []
 
         # Add level values from left to right
-        def add_level_values(node: 'Node', level: int) -> None:
+        def add_level_values(node: "Node", level: int) -> None:
             # The logic below works because when we visit a level, it's
             # guaranteed we've processed a value of the previous level
             if level + 1 > len(levels_list):

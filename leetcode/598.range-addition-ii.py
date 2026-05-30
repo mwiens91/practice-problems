@@ -1,8 +1,6 @@
 # @leet start
 class Solution:
-    def maxCount(
-        self, m: int, n: int, ops: list[list[int]]
-    ) -> int:
+    def maxCount(self, m: int, n: int, ops: list[list[int]]) -> int:
         if not ops:
             return m * n
 

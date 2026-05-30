@@ -21,7 +21,7 @@ class Solution:
             if smallest_factor < i:
                 # Copy the largest factor < i and paste it
                 # smallest_factor - 1 times
-                dp[i] = dp[i // smallest_factor] +  smallest_factor
+                dp[i] = dp[i // smallest_factor] + smallest_factor
             else:
                 # i is prime, we need to copy and paste i - 1 times
                 dp[i] = i

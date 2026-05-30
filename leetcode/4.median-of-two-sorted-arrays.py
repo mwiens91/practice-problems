@@ -115,13 +115,9 @@ class Solution:
         def get_larger_left_right_vals(
             smaller_separator_idx: int,
         ) -> tuple[int | float, int | float]:
-            larger_separator_idx = (
-                combined_left_partition_size - smaller_separator_idx
-            )
+            larger_separator_idx = combined_left_partition_size - smaller_separator_idx
 
-            return get_left_right_vals(
-                larger_separator_idx, nums_larger
-            )
+            return get_left_right_vals(larger_separator_idx, nums_larger)
 
         # Run a binary search on the smaller array to find a valid
         # partition

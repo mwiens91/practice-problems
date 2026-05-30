@@ -54,7 +54,6 @@ class Solution:
 
             min_i += 1
 
-
         # Insert last element
         final_i = n // 2
         final_j = n // 2
@@ -63,7 +62,7 @@ class Solution:
             # For even n, the formula for the final column is different
             final_j -= 1
 
-        matrix[final_i][final_j] = n ** 2
+        matrix[final_i][final_j] = n**2
 
         return matrix
 

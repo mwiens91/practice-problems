@@ -30,5 +30,4 @@ class Solution:
         return sum_odd_length_subarrays
 
 
-
 # @leet end
