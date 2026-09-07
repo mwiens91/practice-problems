@@ -1,12 +1,26 @@
 # @leet start
-from collections import Counter
+import heapq
 
 
 class Solution:
     def topKFrequent(self, nums: list[int], k: int) -> list[int]:
-        # Get a count of each num in nums and grab the k most common.
-        # most_common uses heaps and its complexity is O(n log k).
-        return [n[0] for n in Counter(nums).most_common(k)]
+        counts: dict[int, int] = {}
+
+        for num in nums:
+            if num in counts:
+                counts[num] += 1
+            else:
+                counts[num] = 1
+
+        heap: list[tuple[int, int]] = []
+
+        for num, count in counts.items():
+            if len(heap) < k:
+                heapq.heappush(heap, (count, num))
+            else:
+                heapq.heappushpop(heap, (count, num))
+
+        return [num for _, num in heap]
 
 
 # @leet end

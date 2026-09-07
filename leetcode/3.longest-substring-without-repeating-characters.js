@@ -4,27 +4,29 @@
  * @return {number}
  */
 var lengthOfLongestSubstring = function (s) {
-  let res = 0;
-  const freqs = new Map();
-
+  const lastSeen = new Map(); // index at which we've last seen char
   let start = 0;
+  let best = 0;
 
   for (let i = 0; i < s.length; i++) {
     const ch = s[i];
 
-    if (freqs.get(ch)) {
-      while (s[start] !== ch) {
-        freqs.set(s[start], freqs.get(s[start]) - 1);
-        start++;
-      }
+    // Move up start if needed
+    if (lastSeen.has(ch)) {
+      const lastIdx = lastSeen.get(ch);
 
-      start++;
+      if (lastIdx >= start) {
+        start = lastIdx + 1;
+      }
     }
 
-    freqs.set(ch, 1);
-    res = Math.max(res, i - start + 1);
+    // Mark down this character's index
+    lastSeen.set(ch, i);
+
+    // Update result
+    best = Math.max(best, i - start + 1);
   }
 
-  return res;
+  return best;
 };
 // @leet end
