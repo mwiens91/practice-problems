@@ -8,21 +8,19 @@ var uniquePathsWithObstacles = function (obstacleGrid) {
   const rows = obstacleGrid.length;
   const cols = obstacleGrid[0].length;
 
-  let prev = Array(cols).fill(0);
-  prev[0] = 1;
+  const dp = Array(cols).fill(0);
+  dp[0] = 1;
 
   for (let i = 0; i < rows; i++) {
-    const curr = Array(cols).fill(0);
-
     for (let j = 0; j < cols; j++) {
-      if (obstacleGrid[i][j] !== OBSTACLE) {
-        curr[j] = prev[j] + (j > 0 ? curr[j - 1] : 0);
+      if (obstacleGrid[i][j] === OBSTACLE) {
+        dp[j] = 0;
+      } else if (j > 0) {
+        dp[j] += dp[j - 1];
       }
     }
-
-    prev = curr;
   }
 
-  return prev[cols - 1];
+  return dp[cols - 1];
 };
 // @leet end
