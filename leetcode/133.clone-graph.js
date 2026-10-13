@@ -18,7 +18,6 @@ var cloneGraph = function (node) {
 
   const cloneMap = new Map();
   const toProcess = [node];
-  const processed = new Set();
 
   cloneMap.set(node, new _Node(node.val));
 
@@ -34,8 +33,6 @@ var cloneGraph = function (node) {
 
       clone.neighbors.push(cloneMap.get(origNeighbor));
     }
-
-    processed.add(orig);
   }
 
   return cloneMap.get(node);
